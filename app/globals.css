@@ -1,0 +1,336 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-butter: var(--butter);
+  --color-butter-light: var(--butter-light);
+  --color-butter-deep: var(--butter-deep);
+  --color-gold: var(--gold);
+  --color-seal: var(--seal);
+  --color-seal-deep: var(--seal-deep);
+  --font-sans: var(--font-serif);
+  --font-serif: var(--font-serif);
+  --font-script: var(--font-script);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-serif);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Butter-yellow brand palette */
+  --butter: #e8dd95;
+  --butter-light: #f3ebbb;
+  --butter-deep: #d6c777;
+  --gold: #8b7c46;
+  --seal: #c6c6bb;
+  --seal-deep: #9a9b8f;
+
+  --background: #fdfbf2;
+  --foreground: #5c5430;
+  --card: #fffdf6;
+  --card-foreground: #5c5430;
+  --popover: #fffdf6;
+  --popover-foreground: #5c5430;
+  --primary: #e8dd95;
+  --primary-foreground: #4a4118;
+  --secondary: #f3ebbb;
+  --secondary-foreground: #5c5430;
+  --muted: #f2ecd6;
+  --muted-foreground: #8b7c46;
+  --accent: #8b7c46;
+  --accent-foreground: #fffdf6;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e7dcb2;
+  --input: #e7dcb2;
+  --ring: #c9b86a;
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Envelope landing page
+   ────────────────────────────────────────────────────────────── */
+
+.envelope-scene {
+  --env-w: clamp(300px, 78vw, 560px);
+  --env-h: calc(var(--env-w) * 0.66);
+  position: relative;
+  width: var(--env-w);
+  height: var(--env-h);
+  perspective: 1600px;
+}
+
+/* the invitation card that rises out of the envelope */
+.env-card {
+  position: absolute;
+  left: 6%;
+  top: 7%;
+  width: 88%;
+  height: 86%;
+  background: linear-gradient(180deg, #fffdf6 0%, #fdf8e9 100%);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px -12px rgba(92, 84, 48, 0.35);
+  z-index: 2;
+  transform: translateY(0);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s,
+    z-index 0s linear 0.85s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6% 8%;
+  opacity: 0;
+}
+
+/* envelope back wall (butter body) */
+.env-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, var(--butter-light) 0%, var(--butter) 55%, var(--butter-deep) 100%);
+  border-radius: 6px;
+  box-shadow: 0 24px 48px -20px rgba(92, 84, 48, 0.4);
+  z-index: 1;
+}
+
+/* lower front pocket — covers the card's lower half, with a V opening */
+.env-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(170deg, var(--butter) 0%, var(--butter-deep) 100%);
+  clip-path: polygon(0 32%, 50% 74%, 100% 32%, 100% 100%, 0 100%);
+  border-radius: 6px;
+}
+
+/* faint diagonal seams of the side folds */
+.env-pocket::before,
+.env-pocket::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.12);
+}
+.env-pocket::before {
+  left: 0;
+  clip-path: polygon(0 32%, 50% 74%, 0 100%);
+}
+.env-pocket::after {
+  right: 0;
+  clip-path: polygon(100% 32%, 50% 74%, 100% 100%);
+  background: rgba(120, 105, 50, 0.08);
+}
+
+/* top flap that opens */
+.env-flap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 74%;
+  background: linear-gradient(180deg, var(--butter-deep) 0%, var(--butter) 70%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.9s cubic-bezier(0.6, 0.02, 0.3, 1) 0.35s,
+    z-index 0s linear 0.7s;
+  z-index: 5;
+  backface-visibility: hidden;
+}
+.env-flap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(120, 105, 50, 0.06) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(120, 105, 50, 0.06) 100%
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* wax seal at the flap tip */
+.env-seal {
+  position: absolute;
+  left: 50%;
+  top: 67%;
+  width: clamp(56px, 12%, 86px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  border-radius: 48% 52% 50% 50% / 50% 48% 52% 50%;
+  background: radial-gradient(circle at 38% 32%, #d7d8cf 0%, var(--seal) 45%, var(--seal-deep) 100%);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.18),
+    inset 0 3px 5px rgba(255, 255, 255, 0.55),
+    0 4px 10px -3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, transform 0.45s ease;
+}
+.env-seal span {
+  font-family: var(--font-script), cursive;
+  font-size: clamp(20px, 4.4vw, 30px);
+  color: #6f7065;
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ── OPEN state ── */
+.envelope-scene.is-open .env-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+}
+.envelope-scene.is-open .env-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+.envelope-scene.is-open .env-card {
+  transform: translateY(-62%);
+  z-index: 4;
+  opacity: 1;
+}
+
+.env-prompt {
+  margin-top: 2.75rem;
+  font-family: var(--font-serif), serif;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  color: var(--gold);
+  transition: opacity 0.4s ease;
+}
+.envelope-scene.is-open ~ .env-prompt,
+.env-prompt.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* botanical sprigs flanking the envelope */
+.floral {
+  position: absolute;
+  top: 50%;
+  width: 42%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.95;
+}
+.floral-left {
+  left: -24%;
+  transform: translateY(-52%) rotate(-4deg);
+}
+.floral-right {
+  right: -24%;
+  transform: translateY(-52%) rotate(-4deg) scaleX(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .env-card,
+  .env-flap,
+  .env-seal {
+    transition-duration: 0.001s;
+  }
+}
