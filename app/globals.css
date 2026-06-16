@@ -172,6 +172,7 @@
   z-index: 2;
   transform: translateY(0);
   transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s,
+    opacity 0.8s ease 0.9s,
     z-index 0s linear 0.85s;
   display: flex;
   flex-direction: column;

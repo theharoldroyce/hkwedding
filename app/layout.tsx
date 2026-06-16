@@ -17,7 +17,7 @@ const script = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Elodie & Marc",
+  title: "Harold & Karen Wedding",
   description: "Together with their families — you're invited.",
 };
 
