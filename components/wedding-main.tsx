@@ -41,7 +41,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
           {String(value).padStart(2, "0")}
         </span>
       </div>
-      <span className="font-serif uppercase tracking-[0.3em] text-muted-foreground" style={{ fontSize: "0.65rem" }}>
+      <span className="font-serif uppercase tracking-[0.15em] text-muted-foreground" style={{ fontSize: "0.72rem" }}>
         {label}
       </span>
     </div>
@@ -53,7 +53,7 @@ function Countdown() {
   return (
     <section className="flex flex-col items-center gap-8 py-16 px-4 bg-background">
       <div className="flex flex-col items-center gap-1">
-        <p className="font-serif uppercase tracking-[0.4em] text-gold" style={{ fontSize: "0.75rem" }}>
+        <p className="font-serif uppercase tracking-[0.18em] text-gold" style={{ fontSize: "0.75rem" }}>
           Counting down to
         </p>
         <h2 className="font-script text-foreground" style={{ fontSize: "clamp(2rem, 6vw, 3.2rem)" }}>
@@ -231,7 +231,7 @@ function SacredPromise() {
         <span className="block h-px w-16 bg-gold/40" />
 
         {/* label */}
-        <p className="font-serif uppercase tracking-[0.38em] text-gold/80" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.18em] text-gold/80" style={{ fontSize: "0.72rem" }}>
           Our Sacred Promise
         </p>
 
@@ -247,7 +247,7 @@ function SacredPromise() {
         <span className="block h-px w-16 bg-gold/40" />
 
         {/* citation */}
-        <p className="font-serif uppercase tracking-[0.3em] text-gold/70" style={{ fontSize: "0.68rem" }}>
+        <p className="font-serif uppercase tracking-[0.15em] text-gold/70" style={{ fontSize: "0.72rem" }}>
           Song of Solomon 3:4
         </p>
       </div>
@@ -265,7 +265,7 @@ function VenueSection() {
           When &amp; Where
         </span>
         <span className="block h-px w-10 bg-gold/40" />
-        <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
           Ceremony &amp; Reception
         </p>
       </div>
@@ -298,14 +298,14 @@ function VenueSection() {
 
           {/* text */}
           <div className="flex flex-col items-center gap-2 px-6 py-6 text-center">
-            <p className="font-serif uppercase tracking-[0.42em] text-gold/80" style={{ fontSize: "0.6rem" }}>
+            <p className="font-serif uppercase tracking-[0.18em] text-gold/80" style={{ fontSize: "0.72rem" }}>
               Ceremony
             </p>
             <p className="font-script text-foreground leading-none" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2rem)" }}>
               Buhid Garden
             </p>
             <span className="block h-px w-8 bg-gold/30" />
-            <p className="font-serif uppercase tracking-[0.3em] text-muted-foreground" style={{ fontSize: "0.65rem" }}>
+            <p className="font-serif uppercase tracking-[0.15em] text-muted-foreground" style={{ fontSize: "0.72rem" }}>
               4:00 PM
             </p>
           </div>
@@ -336,14 +336,14 @@ function VenueSection() {
 
           {/* text */}
           <div className="flex flex-col items-center gap-2 px-6 py-6 text-center">
-            <p className="font-serif uppercase tracking-[0.42em] text-gold/80" style={{ fontSize: "0.6rem" }}>
+            <p className="font-serif uppercase tracking-[0.18em] text-gold/80" style={{ fontSize: "0.72rem" }}>
               Reception
             </p>
             <p className="font-script text-foreground leading-none" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2rem)" }}>
               Balai Lobby
             </p>
             <span className="block h-px w-8 bg-gold/30" />
-            <p className="font-serif uppercase tracking-[0.3em] text-muted-foreground" style={{ fontSize: "0.65rem" }}>
+            <p className="font-serif uppercase tracking-[0.15em] text-muted-foreground" style={{ fontSize: "0.72rem" }}>
               To follow
             </p>
           </div>
@@ -373,7 +373,7 @@ function ProgramTimeline() {
           The Programme
         </span>
         <span className="block h-px w-10 bg-gold/40" />
-        <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
           Order of Events
         </p>
       </div>
@@ -390,8 +390,8 @@ function ProgramTimeline() {
 
               {/* time — right-aligned to the line */}
               <span
-                className="w-[72px] shrink-0 pt-0.5 text-right font-serif uppercase tracking-[0.2em] text-gold/80"
-                style={{ fontSize: "0.68rem" }}
+                className="w-[72px] shrink-0 pt-0.5 text-right font-serif uppercase tracking-[0.12em] text-gold/80"
+                style={{ fontSize: "0.72rem" }}
               >
                 {item.time}
               </span>
@@ -403,8 +403,8 @@ function ProgramTimeline() {
 
               {/* label */}
               <span
-                className="font-script text-foreground leading-none"
-                style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)" }}
+                className="font-serif text-foreground leading-none"
+                style={{ fontSize: "clamp(0.95rem, 2.5vw, 1.1rem)" }}
               >
                 {item.label}
               </span>
@@ -430,7 +430,7 @@ function DressCode() {
 
         {/* heading */}
         <div className="flex flex-col items-center gap-2">
-          <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+          <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
             Dress Code
           </p>
           <h2 className="font-script text-foreground leading-none" style={{ fontSize: "clamp(2.4rem, 6vw, 3.5rem)" }}>
@@ -479,7 +479,7 @@ function VenueMap() {
           Find Us
         </span>
         <span className="block h-px w-10 bg-gold/40" />
-        <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
           Venue Location
         </p>
       </div>
@@ -563,7 +563,7 @@ function PawPrint() {
 
 function ESectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-serif uppercase tracking-[0.38em] text-gold/75" style={{ fontSize: "0.6rem" }}>
+    <p className="font-serif uppercase tracking-[0.18em] text-gold/75" style={{ fontSize: "0.72rem" }}>
       {children}
     </p>
   );
@@ -584,7 +584,7 @@ function EntourageSection() {
             The Entourage
           </span>
           <span className="block h-px w-10 bg-gold/40" />
-          <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+          <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
             With the blessings of
           </p>
         </div>
@@ -592,7 +592,7 @@ function EntourageSection() {
         {/* Officiating Pastor */}
         <div className="flex flex-col items-center gap-2">
           <ESectionLabel>Officiating Pastor</ESectionLabel>
-          <p className="font-script text-foreground" style={{ fontSize: "clamp(1.4rem, 3.5vw, 1.8rem)" }}>
+          <p className="font-serif text-foreground" style={{ fontSize: "clamp(1rem, 2.8vw, 1.2rem)" }}>
             Ps. Dave Perico
           </p>
         </div>
@@ -603,15 +603,15 @@ function EntourageSection() {
         <div className="grid w-full gap-10 sm:grid-cols-2">
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Parents of the Groom</ESectionLabel>
-            <p className="font-script text-foreground leading-snug" style={{ fontSize: "clamp(1.15rem, 2.8vw, 1.4rem)" }}>Nemesio S. Anonuevo</p>
-            <span className="font-serif text-muted-foreground" style={{ fontSize: "0.7rem" }}>&amp;</span>
-            <p className="font-script text-foreground leading-snug" style={{ fontSize: "clamp(1.15rem, 2.8vw, 1.4rem)" }}>Violeta D. Anonuevo</p>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Nemesio S. Anonuevo</p>
+            <span className="font-serif text-muted-foreground" style={{ fontSize: "0.8rem" }}>&amp;</span>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Violeta D. Anonuevo</p>
           </div>
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Parents of the Bride</ESectionLabel>
-            <p className="font-script text-foreground leading-snug" style={{ fontSize: "clamp(1.15rem, 2.8vw, 1.4rem)" }}>Ramil L. Guilles</p>
-            <span className="font-serif text-muted-foreground" style={{ fontSize: "0.7rem" }}>&amp;</span>
-            <p className="font-script text-foreground leading-snug" style={{ fontSize: "clamp(1.15rem, 2.8vw, 1.4rem)" }}>Selestina C. Guilles</p>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Ramil L. Guilles</p>
+            <span className="font-serif text-muted-foreground" style={{ fontSize: "0.8rem" }}>&amp;</span>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Selestina C. Guilles</p>
           </div>
         </div>
 
@@ -621,11 +621,11 @@ function EntourageSection() {
         <div className="grid w-full gap-10 sm:grid-cols-2">
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Best Man</ESectionLabel>
-            <p className="font-script text-foreground" style={{ fontSize: "clamp(1.15rem, 2.8vw, 1.4rem)" }}>Rustom C. Guilles</p>
+            <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Rustom C. Guilles</p>
           </div>
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Maid of Honor</ESectionLabel>
-            <p className="font-script text-foreground" style={{ fontSize: "clamp(1.15rem, 2.8vw, 1.4rem)" }}>Iowa Kim D. Anonuevo</p>
+            <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Iowa Kim D. Anonuevo</p>
           </div>
         </div>
 
@@ -634,11 +634,11 @@ function EntourageSection() {
         {/* Principal Sponsors */}
         <div className="flex w-full flex-col items-center gap-6">
           <ESectionLabel>Principal Sponsors</ESectionLabel>
-          <ul className="grid w-full gap-x-8 gap-y-4 sm:grid-cols-2">
+          <ul className="grid w-full gap-x-8 gap-y-3 sm:grid-cols-2">
             {PRINCIPAL_SPONSORS.map((name, i) => (
               <li key={i} className="flex flex-col items-center gap-1">
                 <span className="block h-px w-6 bg-gold/30" />
-                <p className="font-script text-foreground" style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.3rem)" }}>{name}</p>
+                <p className="font-serif text-foreground text-center" style={{ fontSize: "clamp(0.88rem, 2.2vw, 1rem)" }}>{name}</p>
               </li>
             ))}
           </ul>
@@ -653,11 +653,11 @@ function EntourageSection() {
             {SECONDARY_SPONSORS.map((s, i) => (
               <li key={i} className="flex flex-col items-center gap-0.5">
                 {s.role && (
-                  <span className="font-serif uppercase tracking-[0.3em] text-gold/50" style={{ fontSize: "0.55rem" }}>
+                  <span className="font-serif uppercase tracking-[0.15em] text-gold/60" style={{ fontSize: "0.68rem" }}>
                     {s.role}
                   </span>
                 )}
-                <p className="font-script text-foreground" style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.3rem)" }}>{s.names}</p>
+                <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.88rem, 2.2vw, 1rem)" }}>{s.names}</p>
               </li>
             ))}
           </ul>
@@ -670,11 +670,11 @@ function EntourageSection() {
           <ESectionLabel>The Little Ones</ESectionLabel>
 
           {/* Coin Bearer · Bible Bearer · Flower Girl — 3 in one row */}
-          <ul className="grid w-full grid-cols-3 gap-x-4">
+          <ul className="grid w-full grid-cols-1 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-0">
             {CHILDREN_ROLES.filter(c => !c.dog).map((c, i) => (
               <li key={i} className="flex flex-col items-center gap-1">
-                <span className="font-serif uppercase tracking-[0.28em] text-gold/50" style={{ fontSize: "0.52rem" }}>{c.role}</span>
-                <p className="font-script text-foreground text-center leading-tight" style={{ fontSize: "clamp(0.95rem, 2.2vw, 1.2rem)" }}>
+                <span className="font-serif uppercase tracking-[0.15em] text-gold/60" style={{ fontSize: "0.68rem" }}>{c.role}</span>
+                <p className="font-serif text-foreground text-center leading-tight" style={{ fontSize: "clamp(0.9rem, 2.2vw, 1rem)" }}>
                   {c.name}
                 </p>
               </li>
@@ -684,13 +684,13 @@ function EntourageSection() {
           {/* Ring Bearer — alone, centered, paws on both sides */}
           {CHILDREN_ROLES.filter(c => c.dog).map((c, i) => (
             <div key={i} className="flex flex-col items-center gap-1">
-              <span className="font-serif uppercase tracking-[0.28em] text-gold/50" style={{ fontSize: "0.52rem" }}>{c.role}</span>
-              <p className="font-script text-foreground inline-flex items-center gap-2" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.4rem)" }}>
+              <span className="font-serif uppercase tracking-[0.15em] text-gold/60" style={{ fontSize: "0.68rem" }}>{c.role}</span>
+              <p className="font-serif text-foreground inline-flex items-center gap-2" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>
                 <PawPrint /><PawPrint />
                 {c.name}
                 <PawPrint /><PawPrint />
               </p>
-              <span className="font-serif italic text-muted-foreground" style={{ fontSize: "0.68rem" }}>our fur baby</span>
+              <span className="font-serif italic text-muted-foreground" style={{ fontSize: "0.72rem" }}>our fur baby</span>
             </div>
           ))}
         </div>
@@ -721,7 +721,7 @@ function GiftNote() {
 
         <span className="block h-px w-10 bg-gold/40" />
 
-        <p className="font-serif uppercase tracking-[0.38em] text-gold/80" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.18em] text-gold/80" style={{ fontSize: "0.72rem" }}>
           Note on Gifts
         </p>
 
@@ -778,7 +778,7 @@ function WeddingFAQ() {
           Questions?
         </span>
         <span className="block h-px w-10 bg-gold/40" />
-        <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
           Wedding FAQs
         </p>
       </div>
@@ -860,7 +860,7 @@ function RSVPSection() {
           RSVP
         </span>
         <span className="block h-px w-10 bg-gold/40" />
-        <p className="font-serif uppercase tracking-[0.42em] text-foreground" style={{ fontSize: "0.65rem" }}>
+        <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
           Kindly Reply by April 18
         </p>
       </div>
@@ -900,8 +900,8 @@ function RSVPSection() {
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="rsvp-name"
-                className="font-serif uppercase tracking-[0.32em] text-gold/80"
-                style={{ fontSize: "0.6rem" }}
+                className="font-serif uppercase tracking-[0.15em] text-gold/80"
+                style={{ fontSize: "0.72rem" }}
               >
                 Your Name
               </label>
@@ -920,8 +920,8 @@ function RSVPSection() {
             {/* Attendance */}
             <div className="flex flex-col gap-3">
               <p
-                className="font-serif uppercase tracking-[0.32em] text-gold/80"
-                style={{ fontSize: "0.6rem" }}
+                className="font-serif uppercase tracking-[0.15em] text-gold/80"
+                style={{ fontSize: "0.72rem" }}
               >
                 Are you attending?
               </p>
@@ -969,8 +969,8 @@ function RSVPSection() {
             <button
               type="submit"
               disabled={!name.trim() || !attending || loading}
-              className="rounded-xl bg-gold px-6 py-3.5 font-serif uppercase tracking-[0.3em] text-white transition-opacity hover:opacity-85 disabled:opacity-40"
-              style={{ fontSize: "0.7rem" }}
+              className="rounded-xl bg-gold px-6 py-3.5 font-serif uppercase tracking-[0.15em] text-white transition-opacity hover:opacity-85 disabled:opacity-40"
+              style={{ fontSize: "0.78rem" }}
             >
               {loading ? "Sending…" : "Send RSVP"}
             </button>
