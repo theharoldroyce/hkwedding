@@ -523,14 +523,14 @@ function VenueMap() {
 }
 
 const PRINCIPAL_SPONSORS = [
-  "Dr. Lord Jim Ricardo & GiGi Ricardo",
-  "Joel Acuzar & Mariz Acuzar",
-  "Jody Sodusta & Lea Sodusta",
-  "Pedro Anonuevo & Delsie A. Cosme",
-  "Aries Guilles & Amerose Valdez",
-  "Pastor Jumadas & Gracelyn Jumadas",
-  "Ging Leido & Menalyn",
-  "Mr. Clerigo & Mrs. Clerigo",
+  "Dr. Lord Jim Ricardo  &  GiGi Ricardo",
+  "Joel Acuzar  &  Mariz Acuzar",
+  "Jody Sodusta  &  Lea Sodusta",
+  "Pedro Anonuevo  & Delsie A. Cosme",
+  "Aries Guilles  &  Amerose Valdez",
+  "Pastor Jumadas  &  Gracelyn Jumadas",
+  "Ging Leido  &  Menalyn",
+  "Mr. Clerigo  &  Mrs. Clerigo",
   "Mark. Laurence Guilles",
   "Nikko Jay Marquez",
   "Tita Lyn",
@@ -539,11 +539,11 @@ const PRINCIPAL_SPONSORS = [
 ];
 
 const SECONDARY_SPONSORS = [
-  { role: "Candle", names: "Ram C. Guilles & Carmela Cadiz" },
-  { role: "Veil",   names: "Patrick D. Anonuevo & Jenny Madrigal" },
-  { role: "Cord",   names: "Jess Vincent Anonuevo & Kimberly Caraig" },
-  { role: null,     names: "Gebriel Guilles & Catalyne Cosme" },
-  { role: null,     names: "Alpher Cuenca & Tricia Anne Bernadino" },
+  { role: "Candle", names: "Ram C. Guilles  &  Carmela Cadiz" },
+  { role: "Veil",   names: "Patrick D. Anonuevo  &  Jenny Madrigal" },
+  { role: "Cord",   names: "Jess Vincent Anonuevo  &  Kimberly Caraig" },
+  { role: null,     names: "Gebriel Guilles  &  Catalyne Cosme" },
+  { role: null,     names: "Alpher Cuenca  &  Tricia Anne Bernadino" },
 ];
 
 const CHILDREN_ROLES = [
