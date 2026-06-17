@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Pinyon_Script } from "next/font/google";
+import { Playfair_Display, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
-const serif = Cormorant_Garamond({
+const serif = Playfair_Display({
   variable: "--font-serif",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const script = Pinyon_Script({
+const script = Great_Vibes({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",

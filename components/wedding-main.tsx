@@ -208,15 +208,7 @@ function OurStory() {
               who matter most.
             </p>
           </div>
-
-          {/* small ornament */}
-          <div className="flex items-center justify-center gap-3 lg:justify-start">
-            <div className="h-px w-8 bg-border" />
-            <span className="font-script text-gold" style={{ fontSize: "1.4rem" }}>H &amp; K</span>
-            <div className="h-px w-8 bg-border" />
-          </div>
         </div>
-
       </div>
     </section>
   );
@@ -234,15 +226,6 @@ function SacredPromise() {
         <span className="absolute right-5 top-5 size-1.5 rounded-full bg-gold/30" />
         <span className="absolute left-5 bottom-5 size-1.5 rounded-full bg-gold/30" />
         <span className="absolute right-5 bottom-5 size-1.5 rounded-full bg-gold/30" />
-
-        {/* monogram ornament */}
-        <span
-          className="font-script text-gold"
-          style={{ fontSize: "2.2rem", lineHeight: 1, opacity: 0.75 }}
-          aria-hidden="true"
-        >
-          H &amp; K
-        </span>
 
         {/* top gold divider */}
         <span className="block h-px w-16 bg-gold/40" />
@@ -755,9 +738,6 @@ function GiftNote() {
 
         <span className="block h-px w-10 bg-gold/40" />
 
-        <span className="font-script text-gold" style={{ fontSize: "1.5rem", opacity: 0.65 }} aria-hidden="true">
-          H &amp; K
-        </span>
       </div>
     </section>
   );
