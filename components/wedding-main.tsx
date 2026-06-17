@@ -556,7 +556,7 @@ const PRINCIPAL_SPONSORS = [
 ];
 
 const SECONDARY_SPONSORS = [
-  { role: "Candle", names: "Ram C. Guilles & Carmela Arellano" },
+  { role: "Candle", names: "Ram C. Guilles & Carmela Cadiz" },
   { role: "Veil",   names: "Patrick D. Anonuevo & Jenny Madrigal" },
   { role: "Cord",   names: "Jess Vincent Anonuevo & Kimberly Caraig" },
   { role: null,     names: "Gebriel Guilles & Catalyne Cosme" },
