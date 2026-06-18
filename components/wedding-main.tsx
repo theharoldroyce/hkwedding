@@ -526,11 +526,15 @@ const PRINCIPAL_SPONSORS = [
   "Dr. Lord Jim Ricardo  &  GiGi Ricardo",
   "Joel Acuzar  &  Mariz Acuzar",
   "Jody Sodusta  &  Lea Sodusta",
-  "Pedro Anonuevo  & Delsie A. Cosme",
-  "Aries Guilles  &  Amerose Valdez",
   "Pastor Jumadas  &  Gracelyn Jumadas",
-  "Ging Leido  &  Menalyn",
   "Mr. Clerigo  &  Mrs. Clerigo",
+  "Naomi Lyn C. Abellana",
+  "Pedro Anonuevo",
+  "Delsie A. Cosme",
+  "Aries Guilles",
+  "Amerose Valdez",
+  "Ging Leido",
+  "Menalyn",
   "Mark. Laurence Guilles",
   "Nikko Jay Marquez",
   "Tita Lyn",
@@ -841,12 +845,30 @@ function RSVPSection() {
   const [attending, setAttending] = useState<"yes" | "no" | "">("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!name.trim() || !attending) return;
     setLoading(true);
-    await new Promise(r => setTimeout(r, 800));
+    setError(null);
+    try {
+      const res = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), attending }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'Something went wrong. Please try again.');
+        setLoading(false);
+        return;
+      }
+    } catch {
+      setError('Could not reach the server. Please check your connection.');
+      setLoading(false);
+      return;
+    }
     setLoading(false);
     setSubmitted(true);
   }
@@ -964,6 +986,16 @@ function RSVPSection() {
                 </span>
               </label>
             </div>
+
+            {/* Error */}
+            {error && (
+              <p
+                className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2.5 font-serif text-destructive text-center"
+                style={{ fontSize: "0.82rem" }}
+              >
+                {error}
+              </p>
+            )}
 
             {/* Submit */}
             <button
