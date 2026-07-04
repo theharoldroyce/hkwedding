@@ -32,11 +32,11 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
     <div className="flex flex-col items-center gap-2">
       <div
         className="flex items-center justify-center rounded-md border border-border bg-card shadow-sm"
-        style={{ width: "clamp(72px, 18vw, 110px)", height: "clamp(72px, 18vw, 110px)" }}
+        style={{ width: "clamp(58px, 16vw, 110px)", height: "clamp(58px, 16vw, 110px)" }}
       >
         <span
           className="font-serif font-semibold tabular-nums text-gold"
-          style={{ fontSize: "clamp(2rem, 7vw, 3.5rem)" }}
+          style={{ fontSize: "clamp(1.6rem, 6vw, 3.5rem)" }}
         >
           {String(value).padStart(2, "0")}
         </span>
@@ -61,13 +61,13 @@ function Countdown() {
         </h2>
       </div>
 
-      <div className="flex items-start gap-4 sm:gap-8">
+      <div className="flex items-start gap-2 sm:gap-8">
         <CountdownUnit value={days}    label="Days"    />
-        <span className="font-serif text-gold mt-4" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>·</span>
+        <span className="font-serif text-gold mt-4" style={{ fontSize: "clamp(1rem, 4vw, 2.5rem)" }}>·</span>
         <CountdownUnit value={hours}   label="Hours"   />
-        <span className="font-serif text-gold mt-4" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>·</span>
+        <span className="font-serif text-gold mt-4" style={{ fontSize: "clamp(1rem, 4vw, 2.5rem)" }}>·</span>
         <CountdownUnit value={minutes} label="Minutes" />
-        <span className="font-serif text-gold mt-4" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>·</span>
+        <span className="font-serif text-gold mt-4" style={{ fontSize: "clamp(1rem, 4vw, 2.5rem)" }}>·</span>
         <CountdownUnit value={seconds} label="Seconds" />
       </div>
     </section>
@@ -1064,8 +1064,6 @@ export function WeddingMain() {
       {/* ── Photo Gallery ── */}
       <PhotoCarousel />
 
-      {/* ── Countdown ── */}
-      <Countdown />
 
       {/* ── Sacred Promise ── */}
       <SacredPromise />
