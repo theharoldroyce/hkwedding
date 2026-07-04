@@ -1032,22 +1032,22 @@ export function WeddingMain() {
         <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/20 to-black/55" />
 
         {/* text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end gap-3 pb-[18vh] text-center text-white">
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-3 px-6 pb-[18vh] text-center text-white">
           <p
-            className="font-serif uppercase tracking-[0.45em]"
+            className="font-serif uppercase tracking-[0.3em] sm:tracking-[0.45em]"
             style={{ fontSize: "clamp(0.7rem, 2vw, 1rem)" }}
           >
             Save the Date
           </p>
           <h1
-            className="font-serif font-semibold uppercase leading-none tracking-[0.15em]"
+            className="font-serif font-semibold uppercase leading-none tracking-[0.1em] sm:tracking-[0.15em]"
             style={{ fontSize: "clamp(2.4rem, 8vw, 6rem)" }}
           >
             Harold &amp; Karen
           </h1>
           <p
-            className="font-serif tracking-[0.28em] opacity-90"
-            style={{ fontSize: "clamp(0.75rem, 1.8vw, 1rem)" }}
+            className="font-serif uppercase tracking-[0.12em] opacity-90 sm:tracking-[0.28em]"
+            style={{ fontSize: "clamp(0.62rem, 2.6vw, 1rem)" }}
           >
             TUESDAY · THE EIGHTEENTH OF AUGUST · 2026
           </p>
