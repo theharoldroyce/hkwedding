@@ -51,7 +51,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 function Countdown() {
   const { days, hours, minutes, seconds } = useCountdown();
   return (
-    <section className="flex flex-col items-center gap-8 py-16 px-4 bg-background">
+    <section className="flex flex-col items-center gap-8 py-16 px-6 sm:px-4 bg-background">
       <div className="flex flex-col items-center gap-1">
         <p className="font-serif uppercase tracking-[0.18em] text-gold" style={{ fontSize: "0.75rem" }}>
           Counting down to
@@ -171,7 +171,7 @@ function OurStory() {
         {/* photo */}
         <div className="relative w-full max-w-sm flex-none overflow-hidden rounded-sm shadow-lg lg:w-95" style={{ aspectRatio: "4/5" }}>
           <Image
-            src="/images (1).jpg"
+            src="/ourstory.jpg"
             alt="Harold and Karen"
             fill
             sizes="(max-width: 1024px) 80vw, 380px"
@@ -1019,9 +1019,9 @@ export function WeddingMain() {
   return (
     <main className="flex min-h-dvh flex-col bg-background">
       {/* ── Hero ── */}
-      <section className="relative h-[65vh] min-h-105 w-full overflow-hidden">
+      <section className="relative h-dvh w-full overflow-hidden">
         <Image
-          src="/pexels-dax-dexter-delada-2150239947-31044632 (1).jpg"
+          src="/hero.jpg"
           alt="Harold and Karen"
           fill
           priority
@@ -1032,7 +1032,7 @@ export function WeddingMain() {
         <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/20 to-black/55" />
 
         {/* text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center text-white">
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-3 pb-[18vh] text-center text-white">
           <p
             className="font-serif uppercase tracking-[0.45em]"
             style={{ fontSize: "clamp(0.7rem, 2vw, 1rem)" }}
@@ -1054,14 +1054,18 @@ export function WeddingMain() {
         </div>
       </section>
 
-            {/* ── Photo Gallery ── */}
-      <PhotoCarousel />
+      {/* ── Our Story ── */}
+      <OurStory />
 
       {/* ── Countdown ── */}
       <Countdown />
 
-      {/* ── Our Story ── */}
-      <OurStory />
+      
+      {/* ── Photo Gallery ── */}
+      <PhotoCarousel />
+
+      {/* ── Countdown ── */}
+      <Countdown />
 
       {/* ── Sacred Promise ── */}
       <SacredPromise />
