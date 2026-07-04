@@ -1043,7 +1043,7 @@ export function WeddingMain() {
             className="font-serif font-semibold uppercase leading-none tracking-[0.1em] sm:tracking-[0.15em]"
             style={{ fontSize: "clamp(2.4rem, 8vw, 6rem)" }}
           >
-            Harold &amp; Karen
+            Harold<span className="hidden sm:inline"> </span><br className="sm:hidden" />&amp;<span className="hidden sm:inline"> </span><br className="sm:hidden" />Karen
           </h1>
           <p
             className="font-serif uppercase tracking-[0.12em] opacity-90 sm:tracking-[0.28em]"
