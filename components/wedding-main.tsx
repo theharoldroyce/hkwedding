@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { PrenupAlbums } from "@/components/prenup-albums";
 
 const WEDDING_DATE = new Date("2026-08-18T00:00:00");
 
@@ -71,95 +72,6 @@ function Countdown() {
         <CountdownUnit value={seconds} label="Seconds" />
       </div>
     </section>
-  );
-}
-
-const GALLERY = [
-  { src: "/1-3.jpg", alt: "Harold and Karen" },
-  { src: "/download.jpeg", alt: "Harold and Karen" },
-  { src: "/download (1).jpeg", alt: "Harold and Karen" },
-  { src: "/images.jpg", alt: "Harold and Karen" },
-  { src: "/images (1).jpg", alt: "Harold and Karen" },
-];
-
-function ArrowLeft() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="size-5">
-      <path d="M15 18l-6-6 6-6" />
-    </svg>
-  );
-}
-function ArrowRight() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="size-5">
-      <path d="M9 18l6-6-6-6" />
-    </svg>
-  );
-}
-
-function PhotoCarousel() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [canLeft, setCanLeft] = useState(false);
-  const [canRight, setCanRight] = useState(true);
-
-  function scroll(dir: "left" | "right") {
-    const el = trackRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.72;
-    el.scrollBy({ left: dir === "right" ? amount : -amount, behavior: "smooth" });
-  }
-
-  function onScroll() {
-    const el = trackRef.current;
-    if (!el) return;
-    setCanLeft(el.scrollLeft > 8);
-    setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
-  }
-
-  return (
-    <div className="relative w-full overflow-hidden bg-background">
-      {/* left arrow */}
-      <button
-        onClick={() => scroll("left")}
-        aria-label="Scroll left"
-        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-3 text-gold shadow-md backdrop-blur-sm transition hover:bg-butter disabled:opacity-30"
-        disabled={!canLeft}
-      >
-        <ArrowLeft />
-      </button>
-
-      {/* track */}
-      <div
-        ref={trackRef}
-        onScroll={onScroll}
-        className="flex gap-3 overflow-x-auto scroll-smooth px-16 py-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {GALLERY.map((img) => (
-          <div
-            key={img.src}
-            className="relative aspect-[4/5] h-[55vh] max-h-[480px] min-h-[280px] flex-none overflow-hidden rounded-sm"
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              sizes="(max-width: 768px) 80vw, 30vw"
-              className="object-cover"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* right arrow */}
-      <button
-        onClick={() => scroll("right")}
-        aria-label="Scroll right"
-        className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-3 text-gold shadow-md backdrop-blur-sm transition hover:bg-butter disabled:opacity-30"
-        disabled={!canRight}
-      >
-        <ArrowRight />
-      </button>
-    </div>
   );
 }
 
@@ -1060,13 +972,13 @@ export function WeddingMain() {
       {/* ── Countdown ── */}
       <Countdown />
 
-      
-      {/* ── Photo Gallery ── */}
-      <PhotoCarousel />
-
-
-      {/* ── Sacred Promise ── */}
+     {/* ── Sacred Promise ── */}
       <SacredPromise />
+ 
+
+      {/* ── Prenup Albums ── */}
+      <PrenupAlbums />
+
 
       {/* ── Venue ── */}
       <VenueSection />

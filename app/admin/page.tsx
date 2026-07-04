@@ -2,6 +2,7 @@ import { createClient } from '@/lib/server'
 import { redirect } from 'next/navigation'
 import { logout } from './actions'
 import { GuestArrivalsTable } from './guest-arrivals-table'
+import { PrenupManager } from './prenup-manager'
 
 export const metadata = { title: 'Admin · Harold & Karen' }
 
@@ -91,6 +92,9 @@ export default async function AdminPage() {
           <StatCard label="Not Attending" value={notAttending}     sub="sending regrets" />
           <StatCard label="Arrived"       value={arrivedCount}     sub={`of ${attending} attending`} />
         </div>
+
+        {/* ── Prenup Albums ── */}
+        <PrenupManager />
 
         {/* ── Guest Arrivals ── */}
         {guestError ? (
