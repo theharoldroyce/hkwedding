@@ -318,3 +318,69 @@
     transition-duration: 0.001s;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Gallery scroll-reveal — photos fade + rise into place
+   ────────────────────────────────────────────────────────────── */
+@keyframes photo-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.photo-reveal {
+  opacity: 0;
+}
+.photo-reveal.is-visible {
+  animation: photo-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-reveal,
+  .photo-reveal.is-visible {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Main page motion — hero entrance + section scroll-reveal
+   ────────────────────────────────────────────────────────────── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* sections start hidden ONLY once JS marks them (added on mount),
+   so no-JS visitors still see everything */
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: reveal-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* hero text rises in on load; `both` holds the hidden state during the delay */
+.hero-fade {
+  animation: reveal-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible,
+  .hero-fade {
+    opacity: 1;
+    animation: none;
+  }
+}

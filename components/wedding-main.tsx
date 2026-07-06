@@ -1,8 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { PrenupAlbums } from "@/components/prenup-albums";
+
+// Reveal each section as it scrolls into view. Classes are added on mount
+// (not in the markup) so visitors without JS still see all content, and the
+// hero — the only section above the fold — is left untouched.
+function useSectionReveal(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const sections = Array.from(root.children).filter(
+      (el): el is HTMLElement => el.tagName === "SECTION",
+    );
+    const reveals = sections.slice(1); // skip hero
+    reveals.forEach((el) => el.classList.add("reveal"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" },
+    );
+
+    reveals.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [ref]);
+}
 
 const WEDDING_DATE = new Date("2026-08-18T00:00:00");
 
@@ -928,8 +960,11 @@ function RSVPSection() {
 }
 
 export function WeddingMain() {
+  const mainRef = useRef<HTMLElement>(null);
+  useSectionReveal(mainRef);
+
   return (
-    <main className="flex min-h-dvh flex-col bg-background">
+    <main ref={mainRef} className="flex min-h-dvh flex-col bg-background">
       {/* ── Hero ── */}
       <section className="relative h-dvh w-full overflow-hidden">
         <Image
@@ -946,20 +981,20 @@ export function WeddingMain() {
         {/* text */}
         <div className="absolute inset-0 flex flex-col items-center justify-end gap-3 px-6 pb-[18vh] text-center text-white">
           <p
-            className="font-serif uppercase tracking-[0.3em] sm:tracking-[0.45em]"
-            style={{ fontSize: "clamp(0.7rem, 2vw, 1rem)" }}
+            className="hero-fade font-serif uppercase tracking-[0.3em] sm:tracking-[0.45em]"
+            style={{ fontSize: "clamp(0.7rem, 2vw, 1rem)", animationDelay: "0.2s" }}
           >
             Save the Date
           </p>
           <h1
-            className="font-serif font-semibold uppercase leading-none tracking-[0.1em] sm:tracking-[0.15em]"
-            style={{ fontSize: "clamp(2.4rem, 8vw, 6rem)" }}
+            className="hero-fade font-serif font-semibold uppercase leading-none tracking-[0.1em] sm:tracking-[0.15em]"
+            style={{ fontSize: "clamp(2.4rem, 8vw, 6rem)", animationDelay: "0.4s" }}
           >
             Harold<span className="hidden sm:inline"> </span><br className="sm:hidden" />&amp;<span className="hidden sm:inline"> </span><br className="sm:hidden" />Karen
           </h1>
           <p
-            className="font-serif uppercase tracking-[0.12em] opacity-90 sm:tracking-[0.28em]"
-            style={{ fontSize: "clamp(0.62rem, 2.6vw, 1rem)" }}
+            className="hero-fade font-serif uppercase tracking-[0.12em] opacity-90 sm:tracking-[0.28em]"
+            style={{ fontSize: "clamp(0.62rem, 2.6vw, 1rem)", animationDelay: "0.65s" }}
           >
             TUESDAY · THE EIGHTEENTH OF AUGUST · 2026
           </p>

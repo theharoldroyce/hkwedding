@@ -1,12 +1,35 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export type PrenupPhoto = { src: string; caption: string | null };
 
 export function PrenupGallery({ photos }: { photos: PrenupPhoto[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
+
+  // reveal each photo as it scrolls into view
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const tiles = Array.from(grid.querySelectorAll<HTMLElement>(".photo-reveal"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    tiles.forEach((tile) => observer.observe(tile));
+    return () => observer.disconnect();
+  }, [photos]);
 
   const close = useCallback(() => setOpenIndex(null), []);
   const prev = useCallback(
@@ -51,13 +74,14 @@ export function PrenupGallery({ photos }: { photos: PrenupPhoto[] }) {
   return (
     <>
       {/* grid */}
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3">
+      <div ref={gridRef} className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3">
         {photos.map((photo, i) => (
           <button
             key={photo.src}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className="group relative aspect-[4/5] overflow-hidden rounded-sm bg-card"
+            className="photo-reveal group relative aspect-[4/5] overflow-hidden rounded-sm bg-card"
+            style={{ animationDelay: `${(i % 3) * 90}ms` }}
             aria-label={`Open photo ${i + 1}`}
           >
             <Image
