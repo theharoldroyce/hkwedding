@@ -51,7 +51,7 @@ export function PrenupGallery({ photos }: { photos: PrenupPhoto[] }) {
   return (
     <>
       {/* grid */}
-      <div className="mx-auto grid max-w-5xl grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3">
         {photos.map((photo, i) => (
           <button
             key={photo.src}
@@ -64,7 +64,7 @@ export function PrenupGallery({ photos }: { photos: PrenupPhoto[] }) {
               src={photo.src}
               alt={photo.caption ?? `Prenup photo ${i + 1}`}
               fill
-              sizes="(max-width: 640px) 50vw, 33vw"
+              sizes="(max-width: 640px) 100vw, 33vw"
               className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
             />
           </button>

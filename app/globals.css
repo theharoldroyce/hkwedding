@@ -272,12 +272,13 @@
   justify-content: center;
   transition: opacity 0.4s ease, transform 0.45s ease;
 }
-.env-seal span {
-  font-family: var(--font-script), cursive;
-  font-size: clamp(20px, 4.4vw, 30px);
-  color: #6f7065;
-  line-height: 1;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+.env-seal-logo {
+  width: 68%;
+  height: auto;
+  object-fit: contain;
+  /* soften the black ink so it reads as an embossed monogram on the wax */
+  opacity: 0.82;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.4));
 }
 
 /* ── OPEN state ── */
@@ -308,24 +309,6 @@
 .env-prompt.is-hidden {
   opacity: 0;
   pointer-events: none;
-}
-
-/* botanical sprigs flanking the envelope */
-.floral {
-  position: absolute;
-  top: 50%;
-  width: 42%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.95;
-}
-.floral-left {
-  left: -24%;
-  transform: translateY(-52%) rotate(-4deg);
-}
-.floral-right {
-  right: -24%;
-  transform: translateY(-52%) rotate(-4deg) scaleX(-1);
 }
 
 @media (prefers-reduced-motion: reduce) {
