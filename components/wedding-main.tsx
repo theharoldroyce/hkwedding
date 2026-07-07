@@ -958,7 +958,7 @@ function RSVPSection() {
         </span>
         <span className="block h-px w-10 bg-gold/40" />
         <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
-          Kindly Reply by August 10 2026
+          Reservations are open until *July 30* only. Please reserve your seat to secure your spot.
         </p>
       </div>
 
