@@ -8,6 +8,11 @@ import { PrenupGallery, type PrenupPhoto } from "@/components/prenup-gallery";
 const BUCKET = "guest-photos";
 const TABLE = "guest_photos";
 
+// Guest photo sharing opens on the wedding day (Philippine time, UTC+8).
+// The backend RLS policies enforce the same cutoff — this is just the UI gate.
+const OPENS_AT = new Date("2026-08-18T00:00:00+08:00");
+const OPENS_LABEL = "August 18, 2026";
+
 function sanitize(name: string) {
   const dot = name.lastIndexOf(".");
   const base = (dot === -1 ? name : name.slice(0, dot))
@@ -29,10 +34,17 @@ export function GuestUploader() {
   const [error, setError] = useState<string | null>(null);
   const [justUploaded, setJustUploaded] = useState(0);
   const [dragOver, setDragOver] = useState(false);
+  // Determined on the client (in an effect) to avoid a hydration mismatch.
+  const [isOpen, setIsOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setIsOpen(Date.now() >= OPENS_AT.getTime());
+  }, []);
 
   const handleFiles = useCallback(
     async (files: FileList | File[]) => {
+      if (!isOpen) return;
       const list = Array.from(files).filter((f) => f.type.startsWith("image/"));
       if (list.length === 0) return;
 
@@ -71,7 +83,7 @@ export function GuestUploader() {
       setUploading(0);
       setJustUploaded(ok);
     },
-    [supabase, name],
+    [supabase, name, isOpen],
   );
 
   const busy = uploading > 0;
@@ -90,12 +102,14 @@ export function GuestUploader() {
             Share Your Photos
           </p>
           <p className="max-w-md font-serif italic text-muted-foreground" style={{ fontSize: "clamp(0.85rem, 2vw, 0.98rem)" }}>
-            Took a photo during the celebration? Add it here — everything you
-            share appears in the Wedding Snapshots album.
+            {isOpen
+              ? "Took a photo during the celebration? Add it here — everything you share appears in the Wedding Snapshots album."
+              : `Photo sharing will open on our wedding day, ${OPENS_LABEL}.`}
           </p>
         </div>
 
-        {/* uploader */}
+        {/* uploader — locked until the wedding day */}
+        {isOpen ? (
         <div className="flex w-full max-w-md flex-col gap-4">
           <input
             type="text"
@@ -165,6 +179,20 @@ export function GuestUploader() {
             </p>
           )}
         </div>
+        ) : (
+          <div className="flex w-full max-w-md flex-col items-center gap-3 rounded-xl border-2 border-dashed border-border bg-card/40 px-6 py-10 text-center opacity-90">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="size-7 text-gold/60">
+              <rect x="4" y="11" width="16" height="10" rx="2" />
+              <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+            </svg>
+            <p className="font-serif text-foreground" style={{ fontSize: "0.95rem" }}>
+              Photo sharing opens on our wedding day
+            </p>
+            <p className="font-serif text-muted-foreground" style={{ fontSize: "0.8rem" }}>
+              Come back on {OPENS_LABEL} to share your snapshots with us. 💛
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

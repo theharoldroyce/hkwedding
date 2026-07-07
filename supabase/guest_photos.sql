@@ -19,11 +19,12 @@ create policy "Guest photos are publicly readable"
   to anon, authenticated
   using (true);
 
--- Anyone may add a guest photo.
+-- Anyone may add a guest photo, but ONLY on/after the wedding day
+-- (2026-08-18, Philippine time UTC+8).
 create policy "Anyone can add a guest photo"
   on public.guest_photos for insert
   to anon, authenticated
-  with check (true);
+  with check (now() >= timestamptz '2026-08-18 00:00:00+08');
 
 -- 2. Public storage bucket -------------------------------------------------
 insert into storage.buckets (id, name, public)
@@ -39,4 +40,4 @@ create policy "Guest bucket public read"
 create policy "Guest bucket public upload"
   on storage.objects for insert
   to anon, authenticated
-  with check (bucket_id = 'guest-photos');
+  with check (bucket_id = 'guest-photos' and now() >= timestamptz '2026-08-18 00:00:00+08');
