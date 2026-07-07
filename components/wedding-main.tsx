@@ -389,7 +389,7 @@ const SECONDARY_SPONSORS_ATTIRE: { group: string; note: string; colors: Swatch[]
   },
   {
     group: "Team Bride",
-    note: "Butter yellow",
+    note: "Butter yellow long dress or gown",
     colors: [{ name: "Butter Yellow", hex: "#F0E29A" }],
   },
 ];
@@ -572,14 +572,14 @@ const PRINCIPAL_SPONSORS = [
   "Mr. Pastor Jumadas  &  Mrs. Gracelyn Jumadas",
   "Mr. Melvin Valdez  &  Mrs. Amerose Valdez",
   "Mr. Narciso Clerigo  &  Mrs. Maricris Clerigo",
-  "Mrs. Naomi Lyn C. Abellana",
+  "Mrs. Naomi Lyn Abellana",
   "Mrs. Sucilyn Villanueva",
   "Mr. Pedro Anonuevo",
-  "Mrs. Delsie A. Cosme",
+  "Mrs. Delsie Cosme",
   "Mr. Aries Guilles",
   "Mrs. Edgardo Leido, Jr.",
   "Mrs. Menalyn Jane Saludo",
-  "Mr. Mark. Laurence Guilles",
+  "Mr. Mark Laurence Guilles",
   "Dr. Nikko Jay Marquez",
 
 
@@ -837,7 +837,7 @@ const FAQS = [
   },
   {
     q: "Is RSVP really important?",
-    a: "Yes! Please RSVP on or before April 18 to ensure you are included in our final guest list. If you have already RSVP'd but find that you will not be able to make it, please notify us so we can adjust accordingly.",
+    a: "Yes! Please RSVP on or before July 30 2026 to ensure you are included in our final guest list. If you have already RSVP'd but find that you will not be able to make it, please notify us so we can adjust accordingly.",
   },
 ];
 
