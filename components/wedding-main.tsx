@@ -580,7 +580,7 @@ const PRINCIPAL_SPONSORS = [
   "Mrs. Edgardo Leido, Jr.",
   "Mrs. Menalyn Jane Saludo",
   "Mr. Mark. Laurence Guilles",
-  "Mr. Nikko Jay Marquez",
+  "Dr. Nikko Jay Marquez",
 
 
 ];
@@ -958,7 +958,7 @@ function RSVPSection() {
         </span>
         <span className="block h-px w-10 bg-gold/40" />
         <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
-          Kindly Reply by April 18
+          Kindly Reply by August 10 2026
         </p>
       </div>
 
