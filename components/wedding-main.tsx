@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { PrenupAlbums } from "@/components/prenup-albums";
+import { GuestGallery } from "@/components/guest-gallery";
 
 // Reveal each section as it scrolls into view. Classes are added on mount
 // (not in the markup) so visitors without JS still see all content, and the
@@ -360,53 +361,151 @@ function ProgramTimeline() {
   );
 }
 
-const DRESS_COLORS = [
+type Swatch = { name: string; hex: string };
+
+// Palettes drawn from the reference attire photos.
+const SPONSOR_COLORS: Swatch[] = [
+  { name: "Champagne",    hex: "#E6D2A6" },
+  { name: "Ecru",         hex: "#EFE6CE" },
+  { name: "Sand Beige",   hex: "#D3BF97" },
+  { name: "Antique Gold", hex: "#C0A063" },
+];
+
+const PRINCIPAL_SPONSORS_ATTIRE = {
+  group: "Principal Sponsors",
+  note: "Formal long gown & barong in champagne and cream",
+  colors: SPONSOR_COLORS,
+};
+
+// Secondary Sponsors dress as Team Groom (gentlemen) & Team Bride (ladies).
+const SECONDARY_SPONSORS_ATTIRE: { group: string; note: string; colors: Swatch[] }[] = [
+  {
+    group: "Team Groom",
+    note: "White long-sleeved top with khaki trousers",
+    colors: [
+      { name: "White", hex: "#FBFAF6" },
+      { name: "Khaki", hex: "#C4A87A" },
+    ],
+  },
+  {
+    group: "Team Bride",
+    note: "Butter yellow",
+    colors: [{ name: "Butter Yellow", hex: "#F0E29A" }],
+  },
+];
+
+const GUEST_COLORS: Swatch[] = [
   { name: "Buttermilk Yellow", hex: "#F5F0B0" },
   { name: "Golden Butter",     hex: "#E8B84A" },
   { name: "Toasted Caramel",   hex: "#A0602A" },
   { name: "Khaki",             hex: "#D4C4A8" },
 ];
 
+function ColorSwatch({ color }: { color: Swatch }) {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div
+        className="rounded-full"
+        style={{
+          width: "clamp(72px, 15vw, 108px)",
+          height: "clamp(72px, 15vw, 108px)",
+          backgroundColor: color.hex,
+          boxShadow: "0 0 0 3px #1B3D2F",
+        }}
+      />
+      <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.72rem, 1.7vw, 0.88rem)" }}>
+        {color.name}
+      </p>
+    </div>
+  );
+}
+
+function AttireGroup({ group, note, colors }: { group: string; note: string; colors: Swatch[] }) {
+  return (
+    <div className="flex w-full flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-1.5">
+        <p
+          className="font-serif font-semibold uppercase tracking-[0.14em] text-gold"
+          style={{ fontSize: "clamp(1.05rem, 3.2vw, 1.5rem)" }}
+        >
+          {group}
+        </p>
+        <p className="font-serif italic text-muted-foreground" style={{ fontSize: "0.82rem" }}>
+          {note}
+        </p>
+      </div>
+      <div className="flex flex-wrap justify-center gap-x-8 gap-y-6 sm:gap-x-10">
+        {colors.map((color) => (
+          <ColorSwatch key={`${group}-${color.name}`} color={color} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DressCode() {
   return (
     <section className="w-full bg-card py-20 px-6">
-      <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 text-center">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-14 text-center">
 
         {/* heading */}
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-3">
           <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
-            Dress Code
+            Dress Guide
           </p>
           <h2 className="font-script text-foreground leading-none" style={{ fontSize: "clamp(2.4rem, 6vw, 3.5rem)" }}>
-            Guests
+            The Finer Details
           </h2>
           <span className="block h-px w-10 bg-gold/40 mt-1" />
+          <p className="font-serif italic text-muted-foreground" style={{ fontSize: "clamp(0.85rem, 2vw, 0.98rem)" }}>
+            A little guide to help you dress for our celebration.
+          </p>
         </div>
 
-        {/* color swatches */}
-        <div className="grid grid-cols-2 gap-y-8 gap-x-10 sm:grid-cols-4">
-          {DRESS_COLORS.map((color) => (
-            <div key={color.name} className="flex flex-col items-center gap-3">
-              <div
-                className="rounded-full"
-                style={{
-                  width: "clamp(96px, 18vw, 130px)",
-                  height: "clamp(96px, 18vw, 130px)",
-                  backgroundColor: color.hex,
-                  boxShadow: "0 0 0 3px #1B3D2F",
-                }}
-              />
-              <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.78rem, 1.8vw, 0.92rem)" }}>
-                {color.name}
-              </p>
-            </div>
-          ))}
+        {/* Principal Sponsors */}
+        <AttireGroup {...PRINCIPAL_SPONSORS_ATTIRE} />
+
+        <span className="block h-px w-16 bg-gold/25" aria-hidden="true" />
+
+        {/* Secondary Sponsors — dress as Team Groom & Team Bride */}
+        <div className="flex w-full flex-col items-center gap-10">
+          <p
+            className="font-serif font-semibold uppercase tracking-[0.14em] text-gold"
+            style={{ fontSize: "clamp(1.15rem, 3.6vw, 1.65rem)" }}
+          >
+            Secondary Sponsors
+          </p>
+          <div className="grid w-full gap-12 sm:grid-cols-2">
+            {SECONDARY_SPONSORS_ATTIRE.map((g) => (
+              <AttireGroup key={g.group} {...g} />
+            ))}
+          </div>
         </div>
 
-        {/* notice */}
-        <p className="font-serif font-semibold text-foreground" style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)" }}>
-          Strictly NO WHITE and BLACK!
-        </p>
+        <span className="block h-px w-16 bg-gold/25" aria-hidden="true" />
+
+        {/* guests */}
+        <div className="flex w-full flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-1.5">
+            <p
+              className="font-serif font-semibold uppercase tracking-[0.14em] text-gold"
+              style={{ fontSize: "clamp(1.05rem, 3.2vw, 1.5rem)" }}
+            >
+              Guests
+            </p>
+            <p className="font-serif italic text-muted-foreground" style={{ fontSize: "0.82rem" }}>
+              Warm butter, gold, caramel & khaki tones
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-6 sm:gap-x-10">
+            {GUEST_COLORS.map((color) => (
+              <ColorSwatch key={`guest-${color.name}`} color={color} />
+            ))}
+          </div>
+          <p className="mt-2 font-serif font-semibold text-foreground" style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)" }}>
+            Strictly NO WHITE and BLACK!
+          </p>
+        </div>
 
       </div>
     </section>
@@ -467,28 +566,28 @@ function VenueMap() {
 }
 
 const PRINCIPAL_SPONSORS = [
-  "Dr. Lord Jim Ricardo  &  GiGi Ricardo",
-  "Joel Acuzar  &  Mariz Acuzar",
-  "Jody Sodusta  &  Lea Sodusta",
-  "Pastor Jumadas  &  Gracelyn Jumadas",
-  "Mr. Clerigo  &  Mrs. Clerigo",
-  "Naomi Lyn C. Abellana",
-  "Pedro Anonuevo",
-  "Delsie A. Cosme",
-  "Aries Guilles",
-  "Amerose Valdez",
-  "Ging Leido",
-  "Menalyn",
-  "Mark. Laurence Guilles",
-  "Nikko Jay Marquez",
-  "Tita Lyn",
+  "Mr. Jody Sodusta  &  Mrs. Lea Sodusta",
+  "Dr. Lord Jim Ricardo  &  Mrs. GiGi Ricardo",
+  "Mr. Joel Acuzar  &  Mrs. Mariz Acuzar",
+  "Mr. Pastor Jumadas  &  Mrs. Gracelyn Jumadas",
+  "Mr. Melvin Valdez  &  Mrs. Amerose Valdez",
+  "Mr. Narciso Clerigo  &  Mrs. Maricris Clerigo",
+  "Mrs. Naomi Lyn C. Abellana",
+  "Mrs. Sucilyn Villanueva",
+  "Mr. Pedro Anonuevo",
+  "Mrs. Delsie A. Cosme",
+  "Mr. Aries Guilles",
+  "Mrs. Edgardo Leido, Jr.",
+  "Mrs. Menalyn Jane Saludo",
+  "Mr. Mark. Laurence Guilles",
+  "Mr. Nikko Jay Marquez",
 
 
 ];
 
 const SECONDARY_SPONSORS = [
-  { role: "Candle", names: "Ram C. Guilles  &  Carmela Cadiz" },
-  { role: "Veil",   names: "Patrick D. Anonuevo  &  Jenny Madrigal" },
+  { role: "Candle", names: "Patrick D. Anonuevo  &  Carmela Cadiz" },
+  { role: "Veil",   names: "Ram C. Guilles  &  Jenny Madrigal" },
   { role: "Cord",   names: "Jess Vincent Anonuevo  &  Kimberly Caraig" },
   { role: null,     names: "Gebriel Guilles  &  Catalyne Cosme" },
   { role: null,     names: "Alpher Cuenca  &  Tricia Anne Bernadino" },
@@ -682,6 +781,38 @@ function GiftNote() {
             For those who would like to give a gift, a monetary blessing toward
             our new journey together would be deeply appreciated.
           </p>
+        </div>
+
+        {/* payment QR codes */}
+        <div className="mt-2 flex w-full flex-col items-center gap-5">
+          <p className="font-serif uppercase tracking-[0.15em] text-gold/70" style={{ fontSize: "0.7rem" }}>
+            Scan to send your gift
+          </p>
+          <div className="grid w-full max-w-md gap-6 sm:grid-cols-2">
+            {[
+              { src: "/gift-gcash.jpeg",    label: "GCash",    alt: "GCash InstaPay QR code",    w: 1050, h: 1560 },
+              { src: "/gift-landbank.jpeg", label: "Landbank", alt: "Landbank InstaPay QR code", w: 876,  h: 1334 },
+            ].map((qr) => (
+              <figure key={qr.label} className="flex flex-col items-center gap-3">
+                <div className="w-full overflow-hidden rounded-xl border border-border bg-white shadow-sm">
+                  <Image
+                    src={qr.src}
+                    alt={qr.alt}
+                    width={qr.w}
+                    height={qr.h}
+                    sizes="(max-width: 640px) 80vw, 220px"
+                    className="h-auto w-full"
+                  />
+                </div>
+                <figcaption
+                  className="font-serif uppercase tracking-[0.15em] text-muted-foreground"
+                  style={{ fontSize: "0.72rem" }}
+                >
+                  {qr.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
 
         <span className="block h-px w-10 bg-gold/40" />
@@ -1032,6 +1163,9 @@ export function WeddingMain() {
 
       {/* ── Gifts ── */}
       <GiftNote />
+
+      {/* ── Guest Photo Uploads ── */}
+      <GuestGallery />
 
       {/* ── FAQs ── */}
       <WeddingFAQ />
