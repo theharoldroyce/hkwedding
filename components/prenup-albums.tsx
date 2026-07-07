@@ -8,15 +8,24 @@ import { createClient } from "@/lib/client";
 const ALBUMS = [
   {
     key: "v1",
+    eyebrow: "Prenup",
     title: "Volume One",
     blurb: "Golden hour in the open fields",
     placeholder: "/v1 pre 1.jpg",
   },
   {
     key: "v2",
+    eyebrow: "Prenup",
     title: "Volume Two",
     blurb: "Quiet moments, just the two of us",
     placeholder: "/v2 pre 1.jpg",
+  },
+  {
+    key: "guest",
+    eyebrow: "From Our Guests",
+    title: "Wedding Snapshots",
+    blurb: "Photos taken during the celebration",
+    placeholder: "/v1 pre 9.jpg",
   },
 ] as const;
 
@@ -30,15 +39,14 @@ export function PrenupAlbums() {
     let active = true;
 
     (async () => {
+      const map: Record<string, AlbumInfo> = {};
+
       const { data } = await supabase
         .from("prenup_photos")
         .select("album, path")
         .order("sort_order", { ascending: true });
 
-      if (!active || !data) return;
-
-      const map: Record<string, AlbumInfo> = {};
-      for (const row of data) {
+      for (const row of data ?? []) {
         const album = row.album as string;
         if (!map[album]) map[album] = { cover: null, count: 0 };
         if (!map[album].cover) {
@@ -48,7 +56,14 @@ export function PrenupAlbums() {
         }
         map[album].count += 1;
       }
-      setInfo(map);
+
+      // guest album count (cover always uses the placeholder)
+      const { count: guestCount } = await supabase
+        .from("guest_photos")
+        .select("*", { count: "exact", head: true });
+      map["guest"] = { cover: null, count: guestCount ?? 0 };
+
+      if (active) setInfo(map);
     })();
 
     return () => {
@@ -60,25 +75,23 @@ export function PrenupAlbums() {
     <section className="w-full bg-background py-20 px-6">
       {/* heading */}
       <div className="mx-auto mb-12 flex max-w-2xl flex-col items-center gap-3 text-center">
-        <span className="font-script text-gold" style={{ fontSize: "2rem", lineHeight: 1, opacity: 0.85 }}>
-          Prenup
+        <span className="font-script text-gold" style={{ fontSize: "2.6rem", lineHeight: 1, opacity: 0.9 }}>
+          Our Photo Albums
         </span>
         <span className="block h-px w-10 bg-gold/40" />
-        <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
-          Our Photo Albums
-        </p>
       </div>
 
-      {/* album cards */}
-      <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
-        {ALBUMS.map((album) => {
+      {/* album cards — the guest album only appears once it has photos.
+          Flex-wrap + center so 2 or 3 cards always stay centered. */}
+      <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-6">
+        {ALBUMS.filter((album) => album.key !== "guest" || (info.guest?.count ?? 0) > 0).map((album) => {
           const cover = info[album.key]?.cover ?? album.placeholder;
           const count = info[album.key]?.count ?? 0;
           return (
             <Link
               key={album.key}
               href={`/prenup/${album.key}`}
-              className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+              className="group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-card shadow-sm sm:w-[300px] lg:w-[320px]"
             >
               {/* cover photo */}
               <Image
@@ -95,7 +108,7 @@ export function PrenupAlbums() {
               {/* text */}
               <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 p-6 text-center text-white">
                 <p className="font-serif uppercase tracking-[0.2em]" style={{ fontSize: "0.68rem", opacity: 0.9 }}>
-                  Prenup
+                  {album.eyebrow}
                 </p>
                 <h3 className="font-script leading-none" style={{ fontSize: "clamp(1.8rem, 5vw, 2.6rem)" }}>
                   {album.title}

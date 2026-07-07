@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/client";
 import { PrenupGallery, type PrenupPhoto } from "@/components/prenup-gallery";
 
@@ -17,40 +18,18 @@ function sanitize(name: string) {
   return `${base || "photo"}${ext}`;
 }
 
-export function GuestGallery() {
-  // Create the browser client once so callback identities stay stable.
+/* ──────────────────────────────────────────────────────────────
+   Uploader — lives on the main page (below "Note on Gifts").
+   This is how guest photos get in; there is no admin screen for them.
+   ────────────────────────────────────────────────────────────── */
+export function GuestUploader() {
   const [supabase] = useState(() => createClient());
-  const [photos, setPhotos] = useState<PrenupPhoto[]>([]);
   const [name, setName] = useState("");
   const [uploading, setUploading] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [justUploaded, setJustUploaded] = useState(0);
   const [dragOver, setDragOver] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
-
-  const load = useCallback(async () => {
-    const { data, error } = await supabase
-      .from(TABLE)
-      .select("path, uploader_name")
-      .order("created_at", { ascending: false });
-
-    // Stay silent on read errors (e.g. table not set up yet) — the album
-    // simply stays hidden until there are photos to show.
-    if (error) return;
-
-    setPhotos(
-      (data ?? []).map((row) => ({
-        src: supabase.storage.from(BUCKET).getPublicUrl(row.path as string).data.publicUrl,
-        caption: (row.uploader_name as string | null)
-          ? `Shared by ${row.uploader_name as string}`
-          : null,
-      })),
-    );
-  }, [supabase]);
-
-  useEffect(() => {
-    load();
-  }, [load]);
 
   const handleFiles = useCallback(
     async (files: FileList | File[]) => {
@@ -80,7 +59,6 @@ export function GuestGallery() {
         const { error: insErr } = await supabase.from(TABLE).insert({ path, uploader_name: who });
 
         if (insErr) {
-          // roll back the orphaned file so storage and table stay in sync
           await supabase.storage.from(BUCKET).remove([path]);
           setError(`Could not save ${file.name}: ${insErr.message}`);
         } else {
@@ -92,9 +70,8 @@ export function GuestGallery() {
 
       setUploading(0);
       setJustUploaded(ok);
-      await load();
     },
-    [supabase, name, load],
+    [supabase, name],
   );
 
   const busy = uploading > 0;
@@ -113,14 +90,13 @@ export function GuestGallery() {
             Share Your Photos
           </p>
           <p className="max-w-md font-serif italic text-muted-foreground" style={{ fontSize: "clamp(0.85rem, 2vw, 0.98rem)" }}>
-            Took a photo during the celebration? Add it here so we can all relive
-            the day together.
+            Took a photo during the celebration? Add it here — everything you
+            share appears in the Wedding Snapshots album.
           </p>
         </div>
 
         {/* uploader */}
         <div className="flex w-full max-w-md flex-col gap-4">
-          {/* optional name */}
           <input
             type="text"
             value={name}
@@ -130,7 +106,6 @@ export function GuestGallery() {
             style={{ fontSize: "0.9rem" }}
           />
 
-          {/* dropzone */}
           <div
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
             onDragLeave={() => setDragOver(false)}
@@ -168,9 +143,21 @@ export function GuestGallery() {
             </p>
           )}
           {!busy && justUploaded > 0 && (
-            <p className="text-center font-serif text-foreground" style={{ fontSize: "0.85rem" }}>
-              Thank you! {justUploaded} photo{justUploaded === 1 ? "" : "s"} added. 💛
-            </p>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-center font-serif text-foreground" style={{ fontSize: "0.85rem" }}>
+                Thank you! {justUploaded} photo{justUploaded === 1 ? "" : "s"} added. 💛
+              </p>
+              <Link
+                href="/prenup/guest"
+                className="inline-flex items-center gap-2 font-serif uppercase tracking-[0.15em] text-gold/90 transition-colors hover:text-gold"
+                style={{ fontSize: "0.72rem" }}
+              >
+                View the album
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="size-3.5">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </Link>
+            </div>
           )}
           {error && (
             <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2.5 text-center font-serif text-destructive" style={{ fontSize: "0.82rem" }}>
@@ -178,17 +165,55 @@ export function GuestGallery() {
             </p>
           )}
         </div>
-
-        {/* guest album — only shown once there is at least one photo */}
-        {photos.length > 0 && (
-          <div className="flex w-full flex-col items-center gap-6 pt-4">
-            <p className="font-serif uppercase tracking-[0.18em] text-gold/80" style={{ fontSize: "0.72rem" }}>
-              From Our Guests · {photos.length} photo{photos.length === 1 ? "" : "s"}
-            </p>
-            <PrenupGallery photos={photos} />
-          </div>
-        )}
       </div>
     </section>
   );
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Album — view-only gallery shown on the /prenup/guest page,
+   exactly like the Volume One / Volume Two album pages.
+   ────────────────────────────────────────────────────────────── */
+export function GuestAlbum() {
+  const [supabase] = useState(() => createClient());
+  const [photos, setPhotos] = useState<PrenupPhoto[]>([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      const { data } = await supabase
+        .from(TABLE)
+        .select("path, uploader_name")
+        .order("created_at", { ascending: false });
+
+      if (!active) return;
+      setPhotos(
+        (data ?? []).map((row) => ({
+          src: supabase.storage.from(BUCKET).getPublicUrl(row.path as string).data.publicUrl,
+          caption: (row.uploader_name as string | null)
+            ? `Shared by ${row.uploader_name as string}`
+            : null,
+        })),
+      );
+      setLoaded(true);
+    })();
+    return () => {
+      active = false;
+    };
+  }, [supabase]);
+
+  if (loaded && photos.length === 0) {
+    return (
+      <p className="mx-auto max-w-md text-center font-serif italic text-muted-foreground" style={{ fontSize: "0.95rem" }}>
+        No snapshots yet — be the first to share one from the{" "}
+        <Link href="/main" className="text-gold underline-offset-2 hover:underline">
+          home page
+        </Link>
+        .
+      </p>
+    );
+  }
+
+  return <PrenupGallery photos={photos} />;
 }

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { PrenupAlbums } from "@/components/prenup-albums";
-import { GuestGallery } from "@/components/guest-gallery";
+import { GuestUploader } from "@/components/guest-gallery";
 
 // Reveal each section as it scrolls into view. Classes are added on mount
 // (not in the markup) so visitors without JS still see all content, and the
@@ -1164,8 +1164,8 @@ export function WeddingMain() {
       {/* ── Gifts ── */}
       <GiftNote />
 
-      {/* ── Guest Photo Uploads ── */}
-      <GuestGallery />
+      {/* ── Guest Photo Upload ── */}
+      <GuestUploader />
 
       {/* ── FAQs ── */}
       <WeddingFAQ />
