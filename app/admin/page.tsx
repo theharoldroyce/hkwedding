@@ -93,8 +93,6 @@ export default async function AdminPage() {
           <StatCard label="Arrived"       value={arrivedCount}     sub={`of ${attending} attending`} />
         </div>
 
-        {/* ── Prenup Albums ── */}
-        <PrenupManager />
 
         {/* ── Guest Arrivals ── */}
         {guestError ? (
@@ -168,6 +166,9 @@ export default async function AdminPage() {
             </div>
           )}
         </div>
+
+       {/* ── Prenup Albums ── */}
+        <PrenupManager />
 
       </main>
     </div>
