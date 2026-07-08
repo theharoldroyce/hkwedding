@@ -586,8 +586,8 @@ const PRINCIPAL_SPONSORS = [
 ];
 
 const SECONDARY_SPONSORS = [
-  { role: "Candle", names: "Patrick D. Anonuevo  &  Carmela Cadiz" },
-  { role: "Veil",   names: "Ram C. Guilles  &  Jenny Madrigal" },
+  { role: "Candle", names: "Patrick Anonuevo  &  Carmela Cadiz" },
+  { role: "Veil",   names: "Ram Guilles  &  Jenny Madrigal" },
   { role: "Cord",   names: "Jess Vincent Anonuevo  &  Kimberly Caraig" },
   { role: null,     names: "Gebriel Guilles  &  Catalyne Cosme" },
   { role: null,     names: "Alpher Cuenca  &  Tricia Anne Bernadino" },
@@ -650,15 +650,15 @@ function EntourageSection() {
         <div className="grid w-full gap-10 sm:grid-cols-2">
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Parents of the Groom</ESectionLabel>
-            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Nemesio S. Anonuevo</p>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Nemesio Anonuevo</p>
             <span className="font-serif text-muted-foreground" style={{ fontSize: "0.8rem" }}>&amp;</span>
-            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Violeta D. Anonuevo</p>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Violeta Anonuevo</p>
           </div>
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Parents of the Bride</ESectionLabel>
-            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Ramil L. Guilles</p>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Ramil Guilles</p>
             <span className="font-serif text-muted-foreground" style={{ fontSize: "0.8rem" }}>&amp;</span>
-            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Selestina C. Guilles</p>
+            <p className="font-serif text-foreground leading-snug" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Selestina Guilles</p>
           </div>
         </div>
 
@@ -668,11 +668,11 @@ function EntourageSection() {
         <div className="grid w-full gap-10 sm:grid-cols-2">
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Best Man</ESectionLabel>
-            <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Rustom C. Guilles</p>
+            <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Rustom Guilles</p>
           </div>
           <div className="flex flex-col items-center gap-2">
             <ESectionLabel>Maid of Honor</ESectionLabel>
-            <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Iowa Kim D. Anonuevo</p>
+            <p className="font-serif text-foreground" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.1rem)" }}>Iowa Kim Anonuevo</p>
           </div>
         </div>
 
