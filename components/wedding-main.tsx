@@ -783,38 +783,6 @@ function GiftNote() {
           </p>
         </div>
 
-        {/* payment QR codes */}
-        <div className="mt-2 flex w-full flex-col items-center gap-5">
-          <p className="font-serif uppercase tracking-[0.15em] text-gold/70" style={{ fontSize: "0.7rem" }}>
-            Scan to send your gift
-          </p>
-          <div className="grid w-full max-w-md gap-6 sm:grid-cols-2">
-            {[
-              { src: "/gift-gcash.jpeg",    label: "GCash",    alt: "GCash InstaPay QR code",    w: 1050, h: 1560 },
-              { src: "/gift-landbank.jpeg", label: "Landbank", alt: "Landbank InstaPay QR code", w: 876,  h: 1334 },
-            ].map((qr) => (
-              <figure key={qr.label} className="flex flex-col items-center gap-3">
-                <div className="w-full overflow-hidden rounded-xl border border-border bg-white shadow-sm">
-                  <Image
-                    src={qr.src}
-                    alt={qr.alt}
-                    width={qr.w}
-                    height={qr.h}
-                    sizes="(max-width: 640px) 80vw, 220px"
-                    className="h-auto w-full"
-                  />
-                </div>
-                <figcaption
-                  className="font-serif uppercase tracking-[0.15em] text-muted-foreground"
-                  style={{ fontSize: "0.72rem" }}
-                >
-                  {qr.label}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-
         <span className="block h-px w-10 bg-gold/40" />
 
       </div>
