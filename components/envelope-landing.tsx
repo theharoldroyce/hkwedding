@@ -38,7 +38,7 @@ export function EnvelopeLanding() {
           <span className="env-card" aria-live="polite">
             <span
               style={{
-                fontFamily: "var(--font-script), cursive",
+                fontFamily: "var(--font-serif), serif",
                 fontSize: "clamp(0.75rem, 2.2vw, 1rem)",
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
@@ -50,7 +50,7 @@ export function EnvelopeLanding() {
             </span>
             <span
               style={{
-                fontFamily: "var(--font-script), cursive",
+                fontFamily: "var(--font-serif), serif",
                 fontSize: "clamp(1.6rem, 5vw, 2.6rem)",
                 color: "var(--text)",
                 lineHeight: 1.15,
