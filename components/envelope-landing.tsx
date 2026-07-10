@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { MusicPlayer } from "@/components/music-player";
 
 export function EnvelopeLanding() {
   const [open, setOpen] = useState(false);
@@ -30,6 +31,9 @@ export function EnvelopeLanding() {
       />
       {/* soft overlay for legibility */}
       <div className="pointer-events-none absolute inset-0 bg-background/55" />
+
+      {/* background music + vinyl control */}
+      <MusicPlayer />
 
       {/* header */}
       <h1
