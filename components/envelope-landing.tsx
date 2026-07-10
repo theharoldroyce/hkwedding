@@ -15,7 +15,7 @@ export function EnvelopeLanding() {
   }
 
   return (
-    <main className="relative flex min-h-dvh flex-col items-center justify-center gap-2 overflow-hidden bg-background px-4 py-16">
+    <main className="relative flex min-h-dvh flex-col items-center justify-start gap-2 overflow-hidden bg-background px-4 pt-[8vh] pb-16 sm:justify-center sm:pt-16">
       {/* background video — zoomed & anchored right so the couple sits
           on the left, clear of the envelope */}
       <video

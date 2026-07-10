@@ -158,6 +158,13 @@
   perspective: 1600px;
 }
 
+/* Mobile: smaller envelope so the dancing couple stays visible below it */
+@media (max-width: 640px) {
+  .envelope-scene {
+    --env-w: clamp(210px, 60vw, 320px);
+  }
+}
+
 /* the invitation card that rises out of the envelope */
 .env-card {
   position: absolute;
