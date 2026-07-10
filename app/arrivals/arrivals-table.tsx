@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { addGuest, editGuest, removeGuest, toggleArrived } from './actions'
+import { GUEST_CATEGORIES } from '@/lib/guest-categories'
 
 type Guest = {
   id: string
@@ -9,22 +10,25 @@ type Guest = {
   arrived: boolean
   arrived_at: string | null
   table_number: number | null
+  category: string | null
 }
 
 export function ArrivalsTable({ guests }: { guests: Guest[] }) {
   const [query, setQuery] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
   const [adding, setAdding] = useState(false)
   const [editing, setEditing] = useState<Guest | null>(null)
 
-  const filtered = query.trim()
-    ? guests.filter(g => {
-        const q = query.toLowerCase()
-        return (
-          g.name.toLowerCase().includes(q) ||
-          String(g.table_number ?? '').includes(q)
-        )
-      })
-    : guests
+  const filtered = guests.filter(g => {
+    if (categoryFilter && g.category !== categoryFilter) return false
+    if (!query.trim()) return true
+    const q = query.toLowerCase()
+    return (
+      g.name.toLowerCase().includes(q) ||
+      String(g.table_number ?? '').includes(q) ||
+      (g.category?.toLowerCase().includes(q) ?? false)
+    )
+  })
 
   return (
     <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
@@ -57,7 +61,7 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
             </svg>
             <input
               type="text"
-              placeholder="Search name or table…"
+              placeholder="Search name, table, or role…"
               value={query}
               onChange={e => setQuery(e.target.value)}
               className="rounded-lg border border-border bg-background pl-8 pr-4 py-2 font-serif text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-gold/60 transition-colors"
@@ -75,6 +79,20 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
               </button>
             )}
           </div>
+
+          {/* category filter */}
+          <select
+            value={categoryFilter}
+            onChange={e => setCategoryFilter(e.target.value)}
+            aria-label="Filter by category"
+            className="rounded-lg border border-border bg-background px-3 py-2 font-serif text-foreground outline-none focus:border-gold/60 transition-colors"
+            style={{ fontSize: '0.82rem' }}
+          >
+            <option value="">All roles</option>
+            {GUEST_CATEGORIES.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
 
           {/* add guest toggle */}
           <button
@@ -167,6 +185,24 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
                   className="rounded-lg border border-border bg-background px-4 py-2.5 font-serif text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-gold/60 transition-colors"
                   style={{ fontSize: '0.9rem' }}
                 />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="add-category" className="font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>
+                  Role / Category
+                </label>
+                <select
+                  id="add-category"
+                  name="category"
+                  defaultValue=""
+                  className="rounded-lg border border-border bg-background px-4 py-2.5 font-serif text-foreground outline-none focus:border-gold/60 transition-colors"
+                  style={{ fontSize: '0.9rem' }}
+                >
+                  <option value="">— Select a role —</option>
+                  {GUEST_CATEGORIES.map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="flex items-center gap-3 pt-1">
@@ -274,6 +310,24 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
                 />
               </div>
 
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="edit-category" className="font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>
+                  Role / Category
+                </label>
+                <select
+                  id="edit-category"
+                  name="category"
+                  defaultValue={editing.category ?? ''}
+                  className="rounded-lg border border-border bg-background px-4 py-2.5 font-serif text-foreground outline-none focus:border-gold/60 transition-colors"
+                  style={{ fontSize: '0.9rem' }}
+                >
+                  <option value="">— Select a role —</option>
+                  {GUEST_CATEGORIES.map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+
               <div className="flex items-center gap-3 pt-1">
                 <button
                   type="button"
@@ -319,6 +373,7 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
             <thead>
               <tr className="border-b border-border bg-background/50">
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Name</th>
+                <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Role</th>
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Status</th>
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Arrived At</th>
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Table</th>
@@ -335,6 +390,18 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
                 >
                   <td className="px-6 py-4 font-serif text-foreground" style={{ fontSize: '0.9rem' }}>
                     {guest.name}
+                  </td>
+                  <td className="px-6 py-4">
+                    {guest.category ? (
+                      <span
+                        className="inline-flex items-center rounded-full border border-gold/30 bg-butter/20 px-2.5 py-0.5 font-serif uppercase tracking-widest text-foreground"
+                        style={{ fontSize: '0.6rem' }}
+                      >
+                        {guest.category}
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <span

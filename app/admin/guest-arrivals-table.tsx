@@ -8,6 +8,7 @@ type Guest = {
   name: string
   arrived: boolean
   arrived_at: string | null
+  category: string | null
 }
 
 export function GuestArrivalsTable({ guests }: { guests: Guest[] }) {
@@ -98,6 +99,7 @@ export function GuestArrivalsTable({ guests }: { guests: Guest[] }) {
             <thead>
               <tr className="border-b border-border bg-background/50">
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Name</th>
+                <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Role</th>
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Status</th>
                 <th className="px-6 py-3 font-serif uppercase tracking-[0.12em] text-gold/70" style={{ fontSize: '0.65rem' }}>Arrived At</th>
                 <th className="px-6 py-3" />
@@ -113,6 +115,18 @@ export function GuestArrivalsTable({ guests }: { guests: Guest[] }) {
                 >
                   <td className="px-6 py-4 font-serif text-foreground" style={{ fontSize: '0.9rem' }}>
                     {guest.name}
+                  </td>
+                  <td className="px-6 py-4">
+                    {guest.category ? (
+                      <span
+                        className="inline-flex items-center rounded-full border border-gold/30 bg-butter/20 px-2.5 py-0.5 font-serif uppercase tracking-widest text-foreground"
+                        style={{ fontSize: '0.6rem' }}
+                      >
+                        {guest.category}
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <span

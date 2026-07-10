@@ -18,6 +18,7 @@ type Guest = {
   name: string
   arrived: boolean
   arrived_at: string | null
+  category: string | null
   created_at: string
 }
 
@@ -46,7 +47,7 @@ export default async function AdminPage() {
   const [{ data: rsvps, error: rsvpError }, { data: guests, error: guestError }] =
     await Promise.all([
       supabase.from('rsvps').select('id, name, attending, created_at').order('created_at', { ascending: false }),
-      supabase.from('guests').select('id, name, arrived, arrived_at, created_at').order('name'),
+      supabase.from('guests').select('id, name, arrived, arrived_at, category, created_at').order('name'),
     ])
 
   const rsvpList: RSVP[] = rsvps ?? []

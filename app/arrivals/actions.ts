@@ -10,6 +10,7 @@ import { revalidatePath } from 'next/cache'
 export async function addGuest(formData: FormData) {
   const name = (formData.get('name') as string)?.trim()
   const tableRaw = (formData.get('table_number') as string)?.trim()
+  const category = (formData.get('category') as string)?.trim() || null
 
   if (!name) return
 
@@ -17,7 +18,7 @@ export async function addGuest(formData: FormData) {
     tableRaw && !Number.isNaN(Number(tableRaw)) ? Number(tableRaw) : null
 
   const supabase = await createClient()
-  await supabase.from('guests').insert({ name, table_number })
+  await supabase.from('guests').insert({ name, table_number, category })
 
   revalidatePath('/arrivals')
 }
@@ -26,6 +27,7 @@ export async function editGuest(formData: FormData) {
   const id = formData.get('id') as string
   const name = (formData.get('name') as string)?.trim()
   const tableRaw = (formData.get('table_number') as string)?.trim()
+  const category = (formData.get('category') as string)?.trim() || null
 
   if (!id || !name) return
 
@@ -33,7 +35,7 @@ export async function editGuest(formData: FormData) {
     tableRaw && !Number.isNaN(Number(tableRaw)) ? Number(tableRaw) : null
 
   const supabase = await createClient()
-  await supabase.from('guests').update({ name, table_number }).eq('id', id)
+  await supabase.from('guests').update({ name, table_number, category }).eq('id', id)
 
   revalidatePath('/arrivals')
 }

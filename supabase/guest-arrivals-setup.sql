@@ -14,6 +14,12 @@
 alter table public.guests
   add column if not exists table_number int;
 
+-- 1b) Add a category/role to identify each guest (e.g. Principal
+--     Sponsors, Team Groom, Team Bride, Guests, Parents, Family
+--     Member, Siblings, Friends). Nullable — unset until assigned.
+alter table public.guests
+  add column if not exists category text;
+
 -- 2) Row Level Security — allow anonymous access for the public page.
 alter table public.guests enable row level security;
 alter table public.rsvps  enable row level security;
