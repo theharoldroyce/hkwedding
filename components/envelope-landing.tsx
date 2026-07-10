@@ -15,16 +15,31 @@ export function EnvelopeLanding() {
   }
 
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-2 overflow-hidden bg-background px-4 py-16">
+    <main className="relative flex min-h-dvh flex-col items-center justify-center gap-2 overflow-hidden bg-background px-4 py-16">
+      {/* background video — zoomed & anchored right so the couple sits
+          on the left, clear of the envelope */}
+      <video
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        style={{ transform: "scale(1.5)", transformOrigin: "right center" }}
+        src="/0710(1).mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
+      {/* soft overlay for legibility */}
+      <div className="pointer-events-none absolute inset-0 bg-background/55" />
+
       {/* header */}
       <h1
-        className="font-script leading-none text-gold"
+        className="relative z-10 font-script leading-none text-gold"
         style={{ fontSize: "clamp(3.5rem, 11vw, 6.5rem)" }}
       >
         Harold &amp; Karen
       </h1>
 
-      <div className="relative mt-6 flex items-center justify-center">
+      <div className="relative z-10 mt-6 flex items-center justify-center">
         <button
           type="button"
           aria-label={open ? "Invitation opened" : "Click to open the invitation"}
@@ -99,7 +114,7 @@ export function EnvelopeLanding() {
 
       {/* prompt below the envelope */}
       <p
-        className={`env-prompt ${open ? "is-hidden" : ""}`}
+        className={`env-prompt relative z-10 ${open ? "is-hidden" : ""}`}
         aria-hidden={open}
       >
         Click to open
