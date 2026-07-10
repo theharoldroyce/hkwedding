@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 // continuously, and the record only spins while it's actually playing.
 export function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
+  const [everPlayed, setEverPlayed] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   function toggle() {
@@ -25,7 +26,10 @@ export function MusicPlayer() {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    const onPlay = () => setPlaying(true);
+    const onPlay = () => {
+      setPlaying(true);
+      setEverPlayed(true);
+    };
     const onPause = () => setPlaying(false);
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
@@ -43,24 +47,46 @@ export function MusicPlayer() {
     const start = () => {
       audio.play().then(() => setPlaying(true)).catch(() => {});
     };
-    start();
 
+    // Try immediately, and again as soon as the file is buffered enough —
+    // this catches browsers that allow autoplay but weren't ready on mount.
+    start();
+    audio.addEventListener("canplay", start);
+
+    // Fallback for browsers that block silent-start audio: begin on the
+    // visitor's very first interaction anywhere on the page.
     const onFirstGesture = () => {
       if (audio.paused) start();
       window.removeEventListener("pointerdown", onFirstGesture);
       window.removeEventListener("keydown", onFirstGesture);
+      window.removeEventListener("touchstart", onFirstGesture);
     };
     window.addEventListener("pointerdown", onFirstGesture);
     window.addEventListener("keydown", onFirstGesture);
+    window.addEventListener("touchstart", onFirstGesture);
     return () => {
+      audio.removeEventListener("canplay", start);
       window.removeEventListener("pointerdown", onFirstGesture);
       window.removeEventListener("keydown", onFirstGesture);
+      window.removeEventListener("touchstart", onFirstGesture);
     };
   }, []);
 
   return (
     <>
-      <audio ref={audioRef} src="/bg music.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/bg-music.mp3" loop autoPlay preload="auto" />
+
+      {/* "tap for sound" hint — shown until the music first starts */}
+      {!everPlayed && (
+        <span
+          aria-hidden="true"
+          className="fixed bottom-28 right-4 z-20 animate-pulse rounded-full border border-gold/40 bg-card/90 px-3 py-1.5 font-serif uppercase tracking-[0.15em] text-gold shadow-md backdrop-blur-sm sm:bottom-32 sm:right-6"
+          style={{ fontSize: "0.6rem" }}
+        >
+          🔊 Tap for sound
+        </span>
+      )}
+
       <button
         type="button"
         onClick={toggle}
