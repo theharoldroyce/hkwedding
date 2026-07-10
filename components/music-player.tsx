@@ -3,78 +3,81 @@
 import { useEffect, useRef, useState } from "react";
 
 // Animated vinyl record that plays the wedding background music.
-// Tries to auto-play on mount; browsers that block silent-start audio
-// will start it on the visitor's first interaction instead. Loops
-// continuously, and the record only spins while it's actually playing.
+// Browsers block audible autoplay before any interaction, so we start the
+// track MUTED on load (which is allowed) and keep it looping. On the
+// visitor's first tap/click anywhere, we unmute — so sound comes in the
+// instant they engage. The record only spins while the audio is actually
+// AUDIBLE (playing and unmuted), never while it's silently primed.
 export function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const [everPlayed, setEverPlayed] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const btnRef = useRef<HTMLButtonElement | null>(null);
 
   function toggle() {
     const audio = audioRef.current;
     if (!audio) return;
-    if (audio.paused) {
-      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
-    } else {
+    if (!audio.paused && !audio.muted) {
       audio.pause();
-      setPlaying(false);
+    } else {
+      audio.muted = false;
+      audio.play().catch(() => {});
     }
   }
 
-  // Keep the spin state in sync with real playback.
+  // Reflect true AUDIBLE state (playing AND unmuted) in the UI. Fires on
+  // play/pause and on mute changes (volumechange).
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    const onPlay = () => {
-      setPlaying(true);
-      setEverPlayed(true);
+    const sync = () => {
+      const audible = !audio.paused && !audio.muted;
+      setPlaying(audible);
+      if (audible) setEverPlayed(true);
     };
-    const onPause = () => setPlaying(false);
-    audio.addEventListener("play", onPlay);
-    audio.addEventListener("pause", onPause);
+    audio.addEventListener("play", sync);
+    audio.addEventListener("pause", sync);
+    audio.addEventListener("volumechange", sync);
     return () => {
-      audio.removeEventListener("play", onPlay);
-      audio.removeEventListener("pause", onPause);
+      audio.removeEventListener("play", sync);
+      audio.removeEventListener("pause", sync);
+      audio.removeEventListener("volumechange", sync);
     };
   }, []);
 
-  // Auto-play continuously, with a first-gesture fallback.
+  // Muted autoplay on load, then unmute on the first interaction.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const start = () => {
-      audio.play().then(() => setPlaying(true)).catch(() => {});
-    };
+    audio.muted = true;
+    audio.play().catch(() => {});
 
-    // Try immediately, and again as soon as the file is buffered enough —
-    // this catches browsers that allow autoplay but weren't ready on mount.
-    start();
-    audio.addEventListener("canplay", start);
-
-    // Fallback for browsers that block silent-start audio: begin on the
-    // visitor's very first interaction anywhere on the page.
-    const onFirstGesture = () => {
-      if (audio.paused) start();
-      window.removeEventListener("pointerdown", onFirstGesture);
-      window.removeEventListener("keydown", onFirstGesture);
-      window.removeEventListener("touchstart", onFirstGesture);
+    const cleanup = () => {
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("keydown", onGesture);
+      window.removeEventListener("touchstart", onGesture);
     };
-    window.addEventListener("pointerdown", onFirstGesture);
-    window.addEventListener("keydown", onFirstGesture);
-    window.addEventListener("touchstart", onFirstGesture);
-    return () => {
-      audio.removeEventListener("canplay", start);
-      window.removeEventListener("pointerdown", onFirstGesture);
-      window.removeEventListener("keydown", onFirstGesture);
-      window.removeEventListener("touchstart", onFirstGesture);
+    const onGesture = (e: Event) => {
+      // If the first interaction is the vinyl button itself, let its own
+      // onClick handle it — avoids unmute + toggle firing on one tap.
+      if (btnRef.current && e.target instanceof Node && btnRef.current.contains(e.target)) {
+        cleanup();
+        return;
+      }
+      audio.muted = false;
+      if (audio.paused) audio.play().catch(() => {});
+      cleanup();
     };
+    window.addEventListener("pointerdown", onGesture);
+    window.addEventListener("keydown", onGesture);
+    window.addEventListener("touchstart", onGesture);
+    return cleanup;
   }, []);
 
   return (
     <>
-      <audio ref={audioRef} src="/bg-music.mp3" loop autoPlay preload="auto" />
+      <audio ref={audioRef} src="/bg-music.mp3" loop preload="auto" />
 
       {/* "tap for sound" hint — shown until the music first starts */}
       {!everPlayed && (
@@ -88,6 +91,7 @@ export function MusicPlayer() {
       )}
 
       <button
+        ref={btnRef}
         type="button"
         onClick={toggle}
         aria-label={playing ? "Pause music" : "Play music"}
