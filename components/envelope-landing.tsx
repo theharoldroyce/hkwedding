@@ -18,10 +18,10 @@ export function EnvelopeLanding() {
   return (
     <main className="relative flex min-h-dvh flex-col items-center justify-start gap-2 overflow-hidden bg-background px-4 pt-[8vh] pb-16 sm:justify-center sm:pt-16">
       {/* background video — zoomed & anchored right so the couple sits
-          on the left, clear of the envelope */}
+          on the left, clear of the envelope (desktop). On mobile it is
+          reframed so the dancing couple is centered (see globals.css). */}
       <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        style={{ transform: "scale(1.5)", transformOrigin: "right center" }}
+        className="landing-video pointer-events-none absolute inset-0 h-full w-full object-cover"
         src="/0710(1).mp4"
         autoPlay
         muted

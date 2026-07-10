@@ -399,6 +399,7 @@ const GUEST_COLORS: Swatch[] = [
   { name: "Golden Butter",     hex: "#E8B84A" },
   { name: "Toasted Caramel",   hex: "#A0602A" },
   { name: "Khaki",             hex: "#D4C4A8" },
+  { name: "Brown",             hex: "#7A5210" },
 ];
 
 function ColorSwatch({ color }: { color: Swatch }) {

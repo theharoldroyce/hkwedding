@@ -158,10 +158,25 @@
   perspective: 1600px;
 }
 
-/* Mobile: smaller envelope so the dancing couple stays visible below it */
+/* Landing background video framing */
+.landing-video {
+  transform: scale(1.5);
+  transform-origin: right center;
+}
+
+/* Mobile: smaller envelope so the dancing couple stays visible below it,
+   and reframe the background so the dancing couple sits in the center */
 @media (max-width: 640px) {
   .envelope-scene {
     --env-w: clamp(210px, 60vw, 320px);
+  }
+
+  .landing-video {
+    /* center the crop on the dancing couple; tweak object-position
+       (horizontal %, vertical %) to fine-tune their placement */
+    transform: scale(1.3);
+    transform-origin: center center;
+    object-position: 50% 55%;
   }
 }
 
