@@ -578,7 +578,7 @@ const PRINCIPAL_SPONSORS = [
   "Mr. Pedro Anonuevo",
   "Mrs. Delsie Cosme",
   "Mr. Aries Guilles",
-  "Mrs. Edgardo Leido, Jr.",
+  "Mr. Edgardo Leido, Jr.",
   "Mrs. Menalyn Jane Saludo",
   "Mr. Mark Laurence Guilles",
   "Dr. Nikko Jay Marquez",
@@ -590,8 +590,8 @@ const SECONDARY_SPONSORS = [
   { role: "Candle", names: "Patrick Anonuevo  &  Carmela Cadiz" },
   { role: "Veil",   names: "Ram Guilles  &  Jenny Madrigal" },
   { role: "Cord",   names: "Jess Vincent Anonuevo  &  Kimberly Caraig" },
-  { role: null,     names: "Gebriel Guilles  &  Catalyne Cosme" },
-  { role: null,     names: "Alpher Cuenca  &  Tricia Anne Bernadino" },
+  { role: null,     names: "Ashen Gebriel Guilles  &  Tricia Anne Bernadino" },
+  { role: null,     names: "Alpher Cuenca  &  Catalyne Cosme" },
 ];
 
 const CHILDREN_ROLES = [
