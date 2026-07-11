@@ -16,7 +16,7 @@ alter table public.guests
 
 -- 1b) Add a category/role to identify each guest (e.g. Principal
 --     Sponsors, Team Groom, Team Bride, Guests, Parents, Family
---     Member, Siblings, Friends). Nullable — unset until assigned.
+--     Member). Nullable — unset until assigned.
 alter table public.guests
   add column if not exists category text;
 

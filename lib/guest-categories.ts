@@ -7,8 +7,6 @@ export const GUEST_CATEGORIES = [
   'Guests',
   'Parents',
   'Family Member',
-  'Siblings',
-  'Friends',
 ] as const
 
 export type GuestCategory = (typeof GUEST_CATEGORIES)[number]
