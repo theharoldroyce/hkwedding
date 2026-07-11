@@ -159,6 +159,7 @@ export function ArrivalsTable({ guests }: { guests: Guest[] }) {
             <form
               action={async (formData) => {
                 await addGuest(formData)
+                setPage(1)
                 setAdding(false)
               }}
               className="flex flex-col gap-6 px-8 py-10"

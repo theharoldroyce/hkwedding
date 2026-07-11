@@ -40,8 +40,7 @@ export default async function ArrivalsPage() {
     supabase
       .from('guests')
       .select('id, name, arrived, arrived_at, table_number, category, created_at')
-      .order('table_number', { ascending: true, nullsFirst: false })
-      .order('name'),
+      .order('created_at', { ascending: false }),
   ])
 
   const rsvpList = rsvps ?? []
