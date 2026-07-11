@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toggleArrived } from './actions'
+
+const PAGE_SIZE = 10
 
 type Guest = {
   id: string
@@ -13,12 +15,24 @@ type Guest = {
 
 export function GuestArrivalsTable({ guests }: { guests: Guest[] }) {
   const [query, setQuery] = useState('')
+  const [page, setPage] = useState(1)
 
   const filtered = query.trim()
     ? guests.filter(g => g.name.toLowerCase().includes(query.toLowerCase()))
     : guests
 
   const arrivedCount = guests.filter(g => g.arrived).length
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+
+  // Reset to the first page whenever the search changes the result set.
+  useEffect(() => {
+    setPage(1)
+  }, [query])
+
+  // Keep the page in range if the list shrinks.
+  const currentPage = Math.min(page, totalPages)
+  const paged = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
   return (
     <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
@@ -106,7 +120,7 @@ export function GuestArrivalsTable({ guests }: { guests: Guest[] }) {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((guest, i) => (
+              {paged.map((guest, i) => (
                 <tr
                   key={guest.id}
                   className={`border-b border-border last:border-0 transition-colors ${
@@ -165,6 +179,39 @@ export function GuestArrivalsTable({ guests }: { guests: Guest[] }) {
               ))}
             </tbody>
           </table>
+
+          {/* pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between gap-3 border-t border-border px-6 py-4">
+              <span className="font-serif text-muted-foreground" style={{ fontSize: '0.75rem' }}>
+                Showing {(currentPage - 1) * PAGE_SIZE + 1}&ndash;
+                {Math.min(currentPage * PAGE_SIZE, filtered.length)} of {filtered.length}
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage <= 1}
+                  className="rounded-lg border border-border px-3 py-1.5 font-serif uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground disabled:opacity-40 disabled:hover:border-border disabled:hover:text-muted-foreground"
+                  style={{ fontSize: '0.65rem' }}
+                >
+                  Prev
+                </button>
+                <span className="font-serif text-foreground" style={{ fontSize: '0.75rem' }}>
+                  {currentPage} / {totalPages}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage >= totalPages}
+                  className="rounded-lg border border-border px-3 py-1.5 font-serif uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground disabled:opacity-40 disabled:hover:border-border disabled:hover:text-muted-foreground"
+                  style={{ fontSize: '0.65rem' }}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
