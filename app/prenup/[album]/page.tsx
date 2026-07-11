@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/server";
 import { PrenupGallery, type PrenupPhoto } from "@/components/prenup-gallery";
 import { GuestAlbum } from "@/components/guest-gallery";
+import { MusicPlayer } from "@/components/music-player";
 
 const ALBUMS: Record<string, { eyebrow: string; title: string; subtitle: string }> = {
   v1: { eyebrow: "Prenup", title: "Volume One", subtitle: "Golden hour in the open fields" },
@@ -44,6 +45,9 @@ export default async function PrenupAlbumPage({ params }: { params: Promise<{ al
 
   return (
     <main className="flex min-h-dvh flex-col bg-background">
+      {/* background music — same floating vinyl player as the home page */}
+      <MusicPlayer />
+
       {/* header */}
       <header className="w-full px-6 pt-16 pb-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 text-center">
