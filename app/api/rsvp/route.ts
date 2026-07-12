@@ -1,7 +1,16 @@
 import { createClient } from '@/lib/server'
+import { isRsvpClosed } from '@/lib/rsvp'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
+  // RSVP closes automatically on August 1, 2026 — reject late submissions.
+  if (isRsvpClosed()) {
+    return NextResponse.json(
+      { error: 'RSVP is now closed. Please contact the couple directly.' },
+      { status: 403 },
+    )
+  }
+
   const { name, attending } = await request.json()
 
   if (!name?.trim() || !['yes', 'no'].includes(attending)) {

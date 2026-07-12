@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { PrenupAlbums } from "@/components/prenup-albums";
 import { GuestUploader } from "@/components/guest-gallery";
+import { RSVP_CLOSES_AT } from "@/lib/rsvp";
 
 // Reveal each section as it scrolls into view. Classes are added on mount
 // (not in the markup) so visitors without JS still see all content, and the
@@ -910,6 +911,13 @@ function RSVPSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Whether RSVP has automatically closed (August 1, 2026). Computed on the
+  // client in an effect to avoid a server/client hydration mismatch.
+  const [closed, setClosed] = useState(false);
+
+  useEffect(() => {
+    setClosed(Date.now() >= RSVP_CLOSES_AT.getTime());
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -947,7 +955,9 @@ function RSVPSection() {
         </span>
         <span className="block h-px w-10 bg-gold/40" />
         <p className="font-serif uppercase tracking-[0.2em] text-foreground" style={{ fontSize: "0.72rem" }}>
-          Reservations are open until *July 30* only. Please reserve your seat to secure your spot.
+          {closed
+            ? "Reservations are now closed. Thank you to everyone who responded."
+            : "Reservations are open until July 31 only. Please reserve your seat to secure your spot."}
         </p>
       </div>
 
@@ -960,7 +970,24 @@ function RSVPSection() {
         <span className="absolute left-4 top-4 size-1.5 rounded-full bg-gold/25" />
         <span className="absolute right-4 top-4 size-1.5 rounded-full bg-gold/25" />
 
-        {submitted ? (
+        {closed ? (
+          /* ── Closed state — RSVP auto-closes on August 1, 2026 ── */
+          <div className="flex flex-col items-center gap-5 px-10 py-16 text-center">
+            <svg viewBox="0 0 24 24" className="size-10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="11" width="16" height="10" rx="2" stroke="var(--gold)" strokeWidth="1.5" opacity="0.6" />
+              <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <span className="block h-px w-10 bg-gold/40" />
+            <p className="font-script text-foreground" style={{ fontSize: "clamp(1.4rem, 4vw, 1.8rem)" }}>
+              RSVP is now closed
+            </p>
+            <p className="font-serif leading-relaxed text-muted-foreground" style={{ fontSize: "0.85rem" }}>
+              Thank you to everyone who reserved a seat. If you still need to reach us,
+              please contact the couple directly. We can&apos;t wait to celebrate on August 18!
+            </p>
+            <span className="font-script text-gold" style={{ fontSize: "1.4rem", opacity: 0.6 }} aria-hidden="true">H &amp; K</span>
+          </div>
+        ) : submitted ? (
           /* ── Success state ── */
           <div className="flex flex-col items-center gap-5 px-10 py-16 text-center">
             <svg viewBox="0 0 24 24" className="size-10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
