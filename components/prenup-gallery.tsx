@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { supabaseImageLoader } from "@/lib/image-loader";
 
 export type PrenupPhoto = { src: string; caption: string | null };
 
@@ -85,6 +86,7 @@ export function PrenupGallery({ photos }: { photos: PrenupPhoto[] }) {
             aria-label={`Open photo ${i + 1}`}
           >
             <Image
+              loader={supabaseImageLoader}
               src={photo.src}
               alt={photo.caption ?? `Prenup photo ${i + 1}`}
               fill
@@ -136,6 +138,7 @@ export function PrenupGallery({ photos }: { photos: PrenupPhoto[] }) {
           >
             <div className="relative h-[75vh] w-full">
               <Image
+                loader={supabaseImageLoader}
                 src={active.src}
                 alt={active.caption ?? `Prenup photo ${openIndex! + 1}`}
                 fill

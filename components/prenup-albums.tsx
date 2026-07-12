@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/client";
+import { supabaseImageLoader, isRemotePhoto } from "@/lib/image-loader";
 
 const ALBUMS = [
   {
@@ -93,9 +94,11 @@ export function PrenupAlbums() {
               href={`/prenup/${album.key}`}
               className="group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-card shadow-sm sm:w-[300px] lg:w-[320px]"
             >
-              {/* cover photo */}
+              {/* cover photo — remote Supabase covers go through our resizer;
+                  bundled local placeholders use Next's default optimizer. */}
               <Image
                 src={cover}
+                loader={isRemotePhoto(cover) ? supabaseImageLoader : undefined}
                 alt={`Prenup ${album.title}`}
                 fill
                 sizes="(max-width: 640px) 90vw, 45vw"

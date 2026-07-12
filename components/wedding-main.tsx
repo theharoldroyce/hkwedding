@@ -365,6 +365,7 @@ type Swatch = { name: string; hex: string };
 
 // Palettes drawn from the reference attire photos.
 const SPONSOR_COLORS: Swatch[] = [
+  { name: "Butter Yellow",hex: "#F0E29A" },
   { name: "Champagne",    hex: "#E6D2A6" },
   { name: "Ecru",         hex: "#EFE6CE" },
   { name: "Sand Beige",   hex: "#D3BF97" },
@@ -601,6 +602,11 @@ const CHILDREN_ROLES = [
   { role: "Ring Bearer",  name: "Kallie",                 dog: true  },
 ];
 
+const LITTLE_COUPLE = [
+  { role: "Little Bride", name: "Althea Katherine Mahaguay" },
+  { role: "Little Groom", name: "Dylan Tyler Guilles" },
+];
+
 function PawPrint() {
   return (
     <svg viewBox="0 0 24 24" className="inline-block size-3.5" fill="var(--gold)" opacity={0.65} aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -729,6 +735,18 @@ function EntourageSection() {
             ))}
           </ul>
 
+          {/* Little Bride & Little Groom — a pair below the Ring Bearer */}
+          <ul className="grid w-full max-w-md grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-0">
+            {LITTLE_COUPLE.map((c, i) => (
+              <li key={i} className="flex flex-col items-center gap-1">
+                <span className="font-serif uppercase tracking-[0.15em] text-gold/60" style={{ fontSize: "0.68rem" }}>{c.role}</span>
+                <p className="font-serif text-foreground text-center leading-tight" style={{ fontSize: "clamp(0.9rem, 2.2vw, 1rem)" }}>
+                  {c.name}
+                </p>
+              </li>
+            ))}
+          </ul>
+
           {/* Ring Bearer — alone, centered, paws on both sides */}
           {CHILDREN_ROLES.filter(c => c.dog).map((c, i) => (
             <div key={i} className="flex flex-col items-center gap-1">
@@ -741,6 +759,7 @@ function EntourageSection() {
               <span className="font-serif italic text-muted-foreground" style={{ fontSize: "0.72rem" }}>our fur baby</span>
             </div>
           ))}
+
         </div>
       </div>
     </section>
