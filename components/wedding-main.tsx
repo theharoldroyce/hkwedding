@@ -794,12 +794,13 @@ function GiftNote() {
 
         <div className="flex flex-col gap-4 font-serif leading-relaxed text-muted-foreground" style={{ fontSize: "clamp(0.85rem, 2vw, 0.98rem)" }}>
           <p>
-            Your love, laughter, and presence are the only gifts we truly need.
-            We are grateful to celebrate this special day surrounded by those we cherish most.
+            Your presence is the most precious gift we could ask for—sharing your love and being part of our celebration is what makes this day truly magical.
           </p>
           <p>
-            For those who would like to give a gift, a monetary blessing toward
-            our new journey together would be deeply appreciated.
+           However, if you feel moved to bless us further, a <strong className="font-semibold text-foreground">monetary gift</strong> would be a beautiful way to help us build something special as we begin our journey together.
+          </p>
+          <p>
+            Thank you for being part of our story. Your thoughtfulness means the world.
           </p>
         </div>
 
