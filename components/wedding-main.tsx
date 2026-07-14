@@ -577,16 +577,17 @@ const PRINCIPAL_SPONSORS = [
   "Mr. Narciso Clerigo  &  Mrs. Maricris Clerigo",
   "Mrs. Naomi Lyn Abellana",
   "Mrs. Sucilyn Villanueva",
-  "Mr. Pedro Anonuevo",
   "Mrs. Delsie Cosme",
-  "Mr. Aries Guilles",
-  "Mr. Edgardo Leido, Jr.",
   "Mrs. Menalyn Jane Saludo",
   "Mrs. Mary Grace Ganaban",
   "Dr. Nikko Jay Marquez",
-
-
+  "Mr. Mark Laurence Guilles",
+  "Mr. Edgardo Leido, Jr.",
+  "Mr. Pedro Anonuevo",
+  "Mr. Aries Guilles",
 ];
+
+
 
 const SECONDARY_SPONSORS = [
   { role: "Candle", names: "Patrick Anonuevo  &  Carmela Cadiz" },
