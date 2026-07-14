@@ -582,7 +582,7 @@ const PRINCIPAL_SPONSORS = [
   "Mr. Aries Guilles",
   "Mr. Edgardo Leido, Jr.",
   "Mrs. Menalyn Jane Saludo",
-  "Mr. Mark Laurence Guilles",
+  "Mrs. Mary Grace Ganaban",
   "Dr. Nikko Jay Marquez",
 
 
