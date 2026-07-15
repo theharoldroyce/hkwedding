@@ -27,7 +27,7 @@ function sanitize(name: string) {
    Uploader — lives on the main page (below "Note on Gifts").
    This is how guest photos get in; there is no admin screen for them.
    ────────────────────────────────────────────────────────────── */
-export function GuestUploader() {
+export function GuestUploader({ alwaysOpen = false }: { alwaysOpen?: boolean } = {}) {
   const [supabase] = useState(() => createClient());
   const [name, setName] = useState("");
   const [uploading, setUploading] = useState(0);
@@ -35,12 +35,15 @@ export function GuestUploader() {
   const [justUploaded, setJustUploaded] = useState(0);
   const [dragOver, setDragOver] = useState(false);
   // Determined on the client (in an effect) to avoid a hydration mismatch.
-  const [isOpen, setIsOpen] = useState(false);
+  // When `alwaysOpen` is set (the /snapshots QR-scan page) the wedding-day
+  // gate is bypassed in the UI — note the Supabase RLS policies still enforce
+  // the same cutoff, so uploads only succeed once those are relaxed too.
+  const [isOpen, setIsOpen] = useState(alwaysOpen);
   const fileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setIsOpen(Date.now() >= OPENS_AT.getTime());
-  }, []);
+    setIsOpen(alwaysOpen || Date.now() >= OPENS_AT.getTime());
+  }, [alwaysOpen]);
 
   const handleFiles = useCallback(
     async (files: FileList | File[]) => {

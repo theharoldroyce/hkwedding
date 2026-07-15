@@ -1,6 +1,6 @@
 // One-off generator for the guest "Wedding Snapshots" QR code.
 //   node scripts/gen-qr.mjs https://yourdomain.com
-// Encodes <domain>/prenup/guest and writes:
+// Encodes <domain>/snapshots (the mobile QR-scan landing page) and writes:
 //   public/qr-guest-snapshots.svg   — the raw QR (scalable, for embedding/printing)
 // It also prints the SVG path data so it can be inlined into a printable page.
 import QRCode from "qrcode";
@@ -14,7 +14,7 @@ if (!base) {
   process.exit(1);
 }
 
-const url = `${base}/prenup/guest`;
+const url = `${base}/snapshots`;
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 // High error-correction so the code still scans if a printed copy gets a little
